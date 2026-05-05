@@ -639,7 +639,19 @@ body {
   font-size: 12px;
   color: var(--gray-400);
   font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.product-description {
+  font-size: 13px;
+  color: var(--gray-500);
+  line-height: 1.5;
   margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 58px;
 }
 
 .product-price-row {

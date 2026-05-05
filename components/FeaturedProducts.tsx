@@ -85,7 +85,12 @@ export default function FeaturedProducts({ page, posts = [], activeCategory: ext
         originalPrice: 1500000,
         discount: 20,
         category: 'general',
-        image: null
+        image: null,
+        description: {
+          mn: post.excerpt || 'Мэргэжлийн чанартай бүтээгдэхүүн',
+          en: post.excerpt || 'Professional quality product',
+          cn: post.excerpt || '专业品质产品'
+        }
       }))
     : getFilteredProducts();
 

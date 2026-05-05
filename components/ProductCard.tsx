@@ -16,7 +16,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const { isAuthenticated } = useAuth();
   const { showToast } = useToast();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -99,6 +99,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="product-info">
         <div className="product-name">{product.name}</div>
         <div className="product-code">{product.code}</div>
+        <div className="product-description">{product.description[language]}</div>
         
         <div className="product-price-row">
           <span className="product-price">{formatPrice(product.price)}</span>
