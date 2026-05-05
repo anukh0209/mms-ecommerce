@@ -4,7 +4,7 @@ import { useState } from 'react';
 import ProductCard from './ProductCard';
 import { products as allProducts } from '@/lib/products';
 import { useLanguage } from '@/lib/language-context';
-import { Sun, CircuitBoard, Battery, Cable, Building2, Pickaxe } from 'lucide-react';
+import { Wrench, Zap } from 'lucide-react';
 
 interface CategoryDef {
   id: string;
@@ -18,12 +18,8 @@ export default function ProductSections() {
   const [activeFilter, setActiveFilter] = useState('');
 
   const categories: CategoryDef[] = [
-    { id: 'solar', label: t.solar, value: 'solar', icon: <Sun size={24} /> },
-    { id: 'switchboard', label: t.switchboard, value: 'switchboard', icon: <CircuitBoard size={24} /> },
-    { id: 'battery', label: t.battery, value: 'battery', icon: <Battery size={24} /> },
-    { id: 'cable', label: t.cable, value: 'cable', icon: <Cable size={24} /> },
-    { id: 'construction', label: t.construction, value: 'construction', icon: <Building2 size={24} /> },
-    { id: 'mining', label: t.mining, value: 'mining', icon: <Pickaxe size={24} /> },
+    { id: 'workgear', label: t.workGear, value: 'workgear', icon: <Wrench size={24} /> },
+    { id: 'powertools', label: t.powerTools, value: 'powertools', icon: <Zap size={24} /> },
   ];
 
   const getProductsByCategory = (categoryValue: string) => {

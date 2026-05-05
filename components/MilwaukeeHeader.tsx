@@ -30,12 +30,8 @@ export default function Header() {
   };
 
   const navLinks = [
-    { name: t.solar, href: '#section-solar' },
-    { name: t.switchboard, href: '#section-switchboard' },
-    { name: t.battery, href: '#section-battery' },
-    { name: t.cable, href: '#section-cable' },
-    { name: t.construction, href: '#section-construction' },
-    { name: t.mining, href: '#section-mining' },
+    { name: t.workGear, href: '#section-workgear' },
+    { name: t.powerTools, href: '#section-powertools' },
   ];
 
   const scrollToSection = (href: string) => {
