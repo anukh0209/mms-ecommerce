@@ -1,19 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import { Facebook, Instagram } from 'lucide-react';
+import { Facebook, Instagram, Phone, Mail, MapPin } from 'lucide-react';
 import { useLanguage } from '@/lib/language-context';
 
 export default function MilwaukeeFooter() {
   const { t } = useLanguage();
 
   const productLinks = [
-    { name: t.powerTools, href: '#' },
-    { name: t.handTools, href: '#' },
-    { name: t.accessories, href: '#' },
-    { name: t.storage, href: '#' },
-    { name: t.workGear, href: '#' },
-    { name: 'Batteries & Chargers', href: '#' },
+    { name: t.powerTools, href: '#products' },
+    { name: t.handTools, href: '#products' },
+    { name: t.accessories, href: '#products' },
+    { name: t.storage, href: '#products' },
+    { name: t.workGear, href: '#products' },
   ];
 
   const companyLinks = [
@@ -23,6 +22,15 @@ export default function MilwaukeeFooter() {
     { name: t.terms, href: '#' },
     { name: t.privacy, href: '#' },
   ];
+
+  const scrollToSection = (href: string) => {
+    if (href.startsWith('#')) {
+      const element = document.getElementById(href.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <footer className="milwaukee-footer">
@@ -34,7 +42,15 @@ export default function MilwaukeeFooter() {
             <ul>
               {productLinks.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href}>{link.name}</Link>
+                  <a 
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(link.href);
+                    }}
+                  >
+                    {link.name}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -46,7 +62,17 @@ export default function MilwaukeeFooter() {
             <ul>
               {companyLinks.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href}>{link.name}</Link>
+                  <a 
+                    href={link.href}
+                    onClick={(e) => {
+                      if (link.href.startsWith('#')) {
+                        e.preventDefault();
+                        scrollToSection(link.href);
+                      }
+                    }}
+                  >
+                    {link.name}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -55,26 +81,35 @@ export default function MilwaukeeFooter() {
           {/* Contact Info */}
           <div className="footer-col">
             <h4>{t.contactInfo}</h4>
-            <div className="distributor-card" style={{ padding: 0 }}>
+            <div className="distributor-card" style={{ padding: '20px' }}>
               <h5>MMS LLC</h5>
-              <p>{t.addressValue}</p>
-              <p>{t.phoneValue}</p>
-              <p>{t.emailValue}</p>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '10px' }}>
+                <MapPin size={16} style={{ color: '#E53935', marginTop: '3px', flexShrink: 0 }} />
+                <p>{t.addressValue}</p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                <Phone size={16} style={{ color: '#E53935', flexShrink: 0 }} />
+                <p>{t.phoneValue}</p>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Mail size={16} style={{ color: '#E53935', flexShrink: 0 }} />
+                <p>{t.emailValue}</p>
+              </div>
             </div>
           </div>
 
           {/* Social */}
           <div className="footer-col">
             <h4>{t.social}</h4>
-            <p style={{ color: '#999', fontSize: '13px', marginBottom: '15px' }}>
+            <p style={{ color: '#999', fontSize: '14px', marginBottom: '20px', lineHeight: '1.6' }}>
               {t.followUs}
             </p>
             <div className="footer-social">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                <Facebook size={18} />
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <Facebook size={20} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                <Instagram size={18} />
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <Instagram size={20} />
               </a>
             </div>
           </div>
@@ -86,8 +121,8 @@ export default function MilwaukeeFooter() {
         <div className="container">
           <p>{t.copyright}</p>
           <div className="footer-bottom-links">
-            <Link href="#">{t.terms}</Link>
-            <Link href="#">{t.privacy}</Link>
+            <a href="#" onClick={(e) => e.preventDefault()}>{t.terms}</a>
+            <a href="#" onClick={(e) => e.preventDefault()}>{t.privacy}</a>
           </div>
         </div>
       </div>

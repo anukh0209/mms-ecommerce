@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/lib/auth-context';
 import { useToast } from '@/lib/toast-context';
 import { useLanguage } from '@/lib/language-context';
-import { Mail, Lock, Loader2 } from 'lucide-react';
+import { Mail, Lock, Loader2, ArrowLeft } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -68,6 +68,11 @@ export default function LoginPage() {
   return (
     <div className="auth-page-milwaukee">
       <div className="auth-container-milwaukee">
+        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#999', textDecoration: 'none', marginBottom: '20px', fontSize: '14px' }}>
+          <ArrowLeft size={18} />
+          Back
+        </Link>
+        
         <div className="auth-logo-milwaukee">MMS</div>
         
         <div className="auth-header-milwaukee">

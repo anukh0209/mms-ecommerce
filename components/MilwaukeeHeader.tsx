@@ -37,19 +37,35 @@ export default function MilwaukeeHeader() {
     { name: t.workGear, href: '#products' },
   ];
 
+  const scrollToSection = (href: string) => {
+    if (href.startsWith('#')) {
+      const element = document.getElementById(href.substring(1));
+      if (element) {
+        const headerOffset = 120;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+      setMobileMenuOpen(false);
+    }
+  };
+
   return (
     <header className="milwaukee-header">
       {/* Top Bar */}
       <div className="header-top">
         <div className="container">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <Link href="/where-to-buy" style={{ color: '#ccc', textDecoration: 'none', fontSize: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '25px' }}>
+            <Link href="/where-to-buy" style={{ color: 'rgba(255,255,255,0.9)', textDecoration: 'none', fontSize: '13px', fontWeight: 500 }}>
               {t.showroom}
             </Link>
-            <Link href="/contact" style={{ color: '#ccc', textDecoration: 'none', fontSize: '12px' }}>
+            <Link href="#contact" onClick={() => scrollToSection('#contact')} style={{ color: 'rgba(255,255,255,0.9)', textDecoration: 'none', fontSize: '13px', fontWeight: 500 }}>
               {t.contactUs}
             </Link>
-            <Link href="/registration" style={{ color: '#ccc', textDecoration: 'none', fontSize: '12px' }}>
+            <Link href="/registration" style={{ color: 'rgba(255,255,255,0.9)', textDecoration: 'none', fontSize: '13px', fontWeight: 500 }}>
               {t.registration}
             </Link>
           </div>
@@ -69,16 +85,19 @@ export default function MilwaukeeHeader() {
 
           <div className="header-search">
             <input type="text" placeholder={t.search + '...'} />
-            <button>
+            <button onClick={() => showToast('Хайлт: ' + t.search, 'info')}>
               <Search size={18} />
             </button>
           </div>
 
           <div className="header-actions">
-            <Link href="/wishlist" className="header-action-btn">
+            <button 
+              className="header-action-btn" 
+              onClick={() => showToast(t.wishlist + ' - Тун удахгүй', 'info')}
+            >
               <Heart size={22} />
               <span>{t.wishlist}</span>
-            </Link>
+            </button>
 
             <button className="header-action-btn" onClick={handleCartClick}>
               <div style={{ position: 'relative' }}>
@@ -88,16 +107,17 @@ export default function MilwaukeeHeader() {
                     position: 'absolute',
                     top: '-8px',
                     right: '-8px',
-                    background: '#D31145',
-                    color: 'white',
-                    fontSize: '10px',
-                    fontWeight: 'bold',
-                    width: '18px',
-                    height: '18px',
+                    background: 'var(--white)',
+                    color: '#E53935',
+                    fontSize: '11px',
+                    fontWeight: '900',
+                    width: '20px',
+                    height: '20px',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
                   }}>
                     {totalItems}
                   </span>
@@ -107,10 +127,10 @@ export default function MilwaukeeHeader() {
             </button>
 
             {isAuthenticated && user ? (
-              <div className="header-action-btn" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+              <button className="header-action-btn" onClick={handleLogout}>
                 <LogOut size={22} />
                 <span>{t.logout}</span>
-              </div>
+              </button>
             ) : (
               <Link href="/login" className="header-action-btn">
                 <User size={22} />
@@ -135,7 +155,15 @@ export default function MilwaukeeHeader() {
           <ul className="nav-links">
             {navLinks.map((link) => (
               <li key={link.name}>
-                <Link href={link.href}>{link.name}</Link>
+                <a 
+                  href={link.href} 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(link.href);
+                  }}
+                >
+                  {link.name}
+                </a>
               </li>
             ))}
           </ul>
@@ -144,50 +172,64 @@ export default function MilwaukeeHeader() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0,0,0,0.8)',
-          zIndex: 9998,
-          padding: '20px'
-        }}>
-          <div style={{
-            background: '#1a1a1a',
-            maxWidth: '400px',
-            margin: '0 auto',
-            padding: '20px',
-            borderRadius: '8px'
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <span style={{ color: '#D31145', fontSize: '20px', fontWeight: 'bold' }}>MENU</span>
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.8)',
+            zIndex: 9998,
+            padding: '20px'
+          }}
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <div 
+            style={{
+              background: 'var(--white)',
+              maxWidth: '400px',
+              margin: '0 auto',
+              padding: '25px',
+              borderRadius: '16px',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' }}>
+              <span style={{ color: '#E53935', fontSize: '22px', fontWeight: '900' }}>MENU</span>
               <button 
                 onClick={() => setMobileMenuOpen(false)}
-                style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: '#333', cursor: 'pointer', padding: '8px' }}
               >
                 <X size={24} />
               </button>
             </div>
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.name}
                 href={link.href}
                 style={{
                   display: 'block',
-                  padding: '15px 0',
-                  color: 'white',
+                  padding: '16px 0',
+                  color: '#333',
                   textDecoration: 'none',
-                  borderBottom: '1px solid #333',
+                  borderBottom: '1px solid #eee',
                   fontSize: '16px',
-                  fontWeight: '600'
+                  fontWeight: '700',
+                  textTransform: 'uppercase'
                 }}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(link.href);
+                }}
               >
                 {link.name}
-              </Link>
+              </a>
             ))}
+            <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '2px solid #eee' }}>
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       )}

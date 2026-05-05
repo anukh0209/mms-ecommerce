@@ -20,7 +20,17 @@ export default function CartDrawer() {
       setIsCartOpen(false);
       return;
     }
-    showToast('Checkout (in development)', 'info');
+    if (items.length === 0) {
+      showToast(t.cartEmpty, 'error');
+      return;
+    }
+    showToast('Төлбөр төлөх - Тун удахгүй', 'info');
+  };
+
+  const handleClearCart = () => {
+    if (items.length === 0) return;
+    clearCart();
+    showToast('Сагс хоослогдлоо', 'info');
   };
 
   if (!isCartOpen) return null;
@@ -31,17 +41,17 @@ export default function CartDrawer() {
       <div className="cart-drawer">
         <div className="cart-header">
           <div className="cart-title">
-            <ShoppingCart size={20} />
+            <ShoppingCart size={22} />
             <span>{t.cartTitle} ({totalItems})</span>
           </div>
           <button className="cart-close" onClick={() => setIsCartOpen(false)}>
-            <X size={20} />
+            <X size={22} />
           </button>
         </div>
 
         {items.length === 0 ? (
           <div className="cart-empty">
-            <ShoppingCart size={48} style={{ opacity: 0.3, marginBottom: '16px' }} />
+            <ShoppingCart size={56} style={{ opacity: 0.2, marginBottom: '20px' }} />
             <p>{t.cartEmpty}</p>
             <button className="btn-continue" onClick={() => setIsCartOpen(false)}>
               {t.continueShopping}
@@ -56,7 +66,7 @@ export default function CartDrawer() {
                     {item.image ? (
                       <img src={item.image} alt={item.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                     ) : (
-                      <span style={{ fontSize: '24px' }}>🔧</span>
+                      <span style={{ fontSize: '28px' }}>🔧</span>
                     )}
                   </div>
                   <div className="cart-item-info">
@@ -66,7 +76,13 @@ export default function CartDrawer() {
                     <div className="cart-item-actions">
                       <button
                         className="qty-btn"
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        onClick={() => {
+                          if (item.quantity <= 1) {
+                            removeFromCart(item.id);
+                          } else {
+                            updateQuantity(item.id, item.quantity - 1);
+                          }
+                        }}
                       >
                         <Minus size={14} />
                       </button>
@@ -79,9 +95,12 @@ export default function CartDrawer() {
                       </button>
                       <button
                         className="remove-btn"
-                        onClick={() => removeFromCart(item.id)}
+                        onClick={() => {
+                          removeFromCart(item.id);
+                          showToast('Бараа хасагдлаа', 'info');
+                        }}
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={18} />
                       </button>
                     </div>
                   </div>
@@ -91,7 +110,7 @@ export default function CartDrawer() {
 
             <div className="cart-footer">
               <div className="cart-total">
-                <span>{t.total}:</span>
+                <span>{t.total}</span>
                 <span className="total-price">{formatPrice(totalPrice)}</span>
               </div>
               
@@ -99,15 +118,17 @@ export default function CartDrawer() {
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
-                  padding: '10px',
+                  gap: '10px',
+                  padding: '12px',
                   background: '#fff3e0',
+                  borderRadius: '8px',
                   marginBottom: '15px',
-                  fontSize: '13px'
+                  fontSize: '13px',
+                  fontWeight: 600
                 }}>
-                  <Lock size={16} />
+                  <Lock size={18} color="#E53935" />
                   <span>{t.loginRequired}{' '}
-                    <Link href="/login" onClick={() => setIsCartOpen(false)} style={{ color: '#D31145', fontWeight: 'bold' }}>
+                    <Link href="/login" onClick={() => setIsCartOpen(false)} style={{ color: '#E53935', fontWeight: '800' }}>
                       Login
                     </Link>
                   </span>
@@ -117,11 +138,11 @@ export default function CartDrawer() {
               <button 
                 className="btn-checkout"
                 onClick={handleCheckout}
-                style={!isAuthenticated ? { opacity: 0.6 } : undefined}
+                disabled={!isAuthenticated || items.length === 0}
               >
                 {t.checkout}
               </button>
-              <button className="btn-clear" onClick={clearCart}>
+              <button className="btn-clear" onClick={handleClearCart}>
                 {t.clearCart}
               </button>
             </div>
