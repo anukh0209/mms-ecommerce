@@ -113,7 +113,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             width: '8px', 
             height: '8px', 
             borderRadius: '50%', 
-            background: product.stock > 0 ? '#22c55e' : '#ef4444',
+            background: product.stock > 0 ? '#2563eb' : '#ef4444',
             display: 'inline-block'
           }} />
           {product.stock > 0 ? `${t.inStock} (${product.stock})` : t.outOfStock}

@@ -127,9 +127,9 @@ export default function CartDrawer() {
                   fontWeight: 600,
                   color: 'var(--gray-700)'
                 }}>
-                  <Lock size={18} color="#22c55e" />
+                  <Lock size={18} color="#2563eb" />
                   <span>{t.loginRequired}{' '}
-                    <Link href="/login" onClick={() => setIsCartOpen(false)} style={{ color: '#22c55e', fontWeight: '800' }}>
+                    <Link href="/login" onClick={() => setIsCartOpen(false)} style={{ color: '#2563eb', fontWeight: '800' }}>
                       Login
                     </Link>
                   </span>
