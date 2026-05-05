@@ -56,8 +56,8 @@ export default function MilwaukeeHeader() {
         <div className="container">
           <Link href="/" className="milwaukee-logo">
             <div>
-              <div className="milwaukee-logo-text">MILWAUKEE</div>
-              <div className="milwaukee-logo-sub">TOOL MONGOLIA</div>
+              <div className="milwaukee-logo-text">MMS</div>
+              <div className="milwaukee-logo-sub">THE FUTURE IS ELECTRIC</div>
             </div>
           </Link>
 

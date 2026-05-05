@@ -12,7 +12,7 @@ export default function MilwaukeeFooter() {
   ];
 
   const companyLinks = [
-    { name: 'Milwaukee Story', href: '#' },
+    { name: 'About Us', href: '#' },
     { name: 'Contact Us', href: '#contact' },
     { name: 'Where To Buy', href: '#' },
     { name: 'Terms and Conditions', href: '#' },
@@ -47,25 +47,11 @@ export default function MilwaukeeFooter() {
             </ul>
           </div>
 
-          {/* Distributor 1 */}
+          {/* Contact Info */}
           <div className="footer-col">
-            <h4>ГАРЫН ҮНДЭСЛЭГЧ</h4>
+            <h4>ХОЛБОГДОХ</h4>
             <div className="distributor-card" style={{ padding: 0 }}>
-              <h5>GREY STONE LLC</h5>
-              <p>
-                New Millennium Building Level 5, 15th khoroo,
-                Khan Uul district, Ulaanbaatar 17011, Mongolia
-              </p>
-              <p>+976-7755-2737</p>
-              <p>sales@greystone.mn</p>
-            </div>
-          </div>
-
-          {/* Distributor 2 */}
-          <div className="footer-col">
-            <h4>БОРЛУУЛАГЧ</h4>
-            <div className="distributor-card" style={{ padding: 0 }}>
-              <h5>MYMONSOURCE LLC</h5>
+              <h5>MMS LLC</h5>
               <p>
                 MMS Green Building, Archivist street 512,
                 8th khoroo, Khan-Uul district, Ulaanbaatar 17101, Mongolia
@@ -73,7 +59,14 @@ export default function MilwaukeeFooter() {
               <p>+976-7711-1999, 89664141</p>
               <p>sales@source.mn</p>
             </div>
-            
+          </div>
+
+          {/* Social */}
+          <div className="footer-col">
+            <h4>СОШИАЛ</h4>
+            <p style={{ color: '#999', fontSize: '13px', marginBottom: '15px' }}>
+              Биднийг дагаарай
+            </p>
             <div className="footer-social">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
                 <Facebook size={18} />
@@ -89,7 +82,7 @@ export default function MilwaukeeFooter() {
       {/* Footer Bottom */}
       <div className="footer-bottom-milwaukee">
         <div className="container">
-          <p>© 2026 Milwaukee Tool Mongolia. All rights reserved.</p>
+          <p>© 2026 MMS - The Future Is Electric. All rights reserved.</p>
           <div className="footer-bottom-links">
             <Link href="#">Terms and Conditions of Use</Link>
             <Link href="#">Privacy Policy</Link>

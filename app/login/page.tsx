@@ -66,7 +66,7 @@ export default function LoginPage() {
   return (
     <div className="auth-page-milwaukee">
       <div className="auth-container-milwaukee">
-        <div className="auth-logo-milwaukee">MILWAUKEE</div>
+        <div className="auth-logo-milwaukee">MMS</div>
         
         <div className="auth-header-milwaukee">
           <h1>НЭВТРЭХ</h1>

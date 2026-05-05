@@ -61,7 +61,7 @@ export default function MilwaukeeContact() {
                 </div>
                 <div>
                   <div style={{ fontWeight: '700', fontSize: '14px' }}>ХАЯГ</div>
-                  <div style={{ color: '#666', fontSize: '14px' }}>Улаанбаатар, Монгол</div>
+                  <div style={{ color: '#666', fontSize: '14px' }}>MMS Green Building, Archivist street 512, Khan-Uul district, Ulaanbaatar</div>
                 </div>
               </div>
               
@@ -71,7 +71,7 @@ export default function MilwaukeeContact() {
                 </div>
                 <div>
                   <div style={{ fontWeight: '700', fontSize: '14px' }}>УТАС</div>
-                  <div style={{ color: '#666', fontSize: '14px' }}>+976-7711-1999</div>
+                  <div style={{ color: '#666', fontSize: '14px' }}>+976-7711-1999, 89664141</div>
                 </div>
               </div>
               
@@ -81,7 +81,7 @@ export default function MilwaukeeContact() {
                 </div>
                 <div>
                   <div style={{ fontWeight: '700', fontSize: '14px' }}>ИМЭЙЛ</div>
-                  <div style={{ color: '#666', fontSize: '14px' }}>sales@milwaukee.mn</div>
+                  <div style={{ color: '#666', fontSize: '14px' }}>sales@source.mn</div>
                 </div>
               </div>
             </div>

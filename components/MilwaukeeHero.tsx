@@ -29,7 +29,7 @@ export default function MilwaukeeHero() {
             letterSpacing: '4px',
             textTransform: 'uppercase'
           }}>
-            MILWAUKEE
+            MMS
           </div>
           <h1 style={{
             fontSize: '36px',
@@ -38,7 +38,7 @@ export default function MilwaukeeHero() {
             textTransform: 'uppercase',
             letterSpacing: '3px'
           }}>
-            TOOL MONGOLIA
+            THE FUTURE IS ELECTRIC
           </h1>
           <p style={{
             fontSize: '18px',
@@ -46,7 +46,7 @@ export default function MilwaukeeHero() {
             color: '#ccc',
             maxWidth: '600px'
           }}>
-            Профессионалын сонголт. Чанар, бат бөх байдал, инновацийн шийдэл
+            Mining, Construction and Energy sector of Mongolia
           </p>
           <a href="#products" className="hero-btn">
             БҮТЭЭГДЭХҮҮН ХАРАХ
