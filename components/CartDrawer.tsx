@@ -30,7 +30,7 @@ export default function CartDrawer() {
         <div className="cart-header">
           <div className="cart-title">
             <ShoppingCart size={20} />
-            <span>Сагс ({totalItems})</span>
+            <span>САГС ({totalItems})</span>
           </div>
           <button className="cart-close" onClick={() => setIsCartOpen(false)}>
             <X size={20} />
@@ -50,13 +50,18 @@ export default function CartDrawer() {
             <div className="cart-items">
               {items.map((item) => (
                 <div key={item.id} className="cart-item">
+                  <div className="cart-item-image">
+                    {item.image ? (
+                      <img src={item.image} alt={item.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                    ) : (
+                      <span style={{ fontSize: '24px' }}>🔧</span>
+                    )}
+                  </div>
                   <div className="cart-item-info">
                     <div className="cart-item-name">{item.name}</div>
-                    <div className="cart-item-code">{item.code}</div>
+                    <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px' }}>{item.code}</div>
                     <div className="cart-item-price">{formatPrice(item.price)}</div>
-                  </div>
-                  <div className="cart-item-actions">
-                    <div className="quantity-controls">
+                    <div className="cart-item-actions">
                       <button
                         className="qty-btn"
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -70,13 +75,13 @@ export default function CartDrawer() {
                       >
                         <Plus size={14} />
                       </button>
+                      <button
+                        className="remove-btn"
+                        onClick={() => removeFromCart(item.id)}
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
-                    <button
-                      className="remove-btn"
-                      onClick={() => removeFromCart(item.id)}
-                    >
-                      <Trash2 size={16} />
-                    </button>
                   </div>
                 </div>
               ))}
@@ -84,25 +89,38 @@ export default function CartDrawer() {
 
             <div className="cart-footer">
               <div className="cart-total">
-                <span>Нийт:</span>
+                <span>НИЙТ:</span>
                 <span className="total-price">{formatPrice(totalPrice)}</span>
               </div>
               
               {!isAuthenticated && (
-                <div className="cart-auth-required">
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px',
+                  background: '#fff3e0',
+                  marginBottom: '15px',
+                  fontSize: '13px'
+                }}>
                   <Lock size={16} />
-                  <span>Төлбөр төлөхийн тулд{' '}<Link href="/login" onClick={() => setIsCartOpen(false)}>нэвтэрнэ үү</Link></span>
+                  <span>Төлбөр төлөхийн тулд{' '}
+                    <Link href="/login" onClick={() => setIsCartOpen(false)} style={{ color: '#D31145', fontWeight: 'bold' }}>
+                      нэвтэрнэ үү
+                    </Link>
+                  </span>
                 </div>
               )}
               
               <button 
-                className={`btn-checkout ${!isAuthenticated ? 'disabled' : ''}`}
+                className="btn-checkout"
                 onClick={handleCheckout}
+                style={!isAuthenticated ? { opacity: 0.6 } : undefined}
               >
-                {isAuthenticated ? 'Төлбөр төлөх' : 'Төлбөр төлөх (Нэвтэрнэ үү)'}
+                ТӨЛБӨР ТӨЛӨХ
               </button>
               <button className="btn-clear" onClick={clearCart}>
-                Сагс хоослох
+                САГС ХООСЛОХ
               </button>
             </div>
           </>

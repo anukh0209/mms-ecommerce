@@ -64,20 +64,18 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <div className="auth-header">
-          <div className="auth-logo">MMS</div>
-          <h1>Нэвтрэх</h1>
+    <div className="auth-page-milwaukee">
+      <div className="auth-container-milwaukee">
+        <div className="auth-logo-milwaukee">MILWAUKEE</div>
+        
+        <div className="auth-header-milwaukee">
+          <h1>НЭВТРЭХ</h1>
           <p>Бүртгэлээ ашиглан нэвтэрнэ үү</p>
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className={`form-group ${errors.email ? 'error' : ''}`}>
-            <label>
-              <Mail size={16} />
-              Имэйл хаяг
-            </label>
+        <form className="auth-form-milwaukee" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>ИМЭЙЛ ХАЯГ</label>
             <input
               type="email"
               name="email"
@@ -89,11 +87,8 @@ export default function LoginPage() {
             {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
 
-          <div className={`form-group ${errors.password ? 'error' : ''}`}>
-            <label>
-              <Lock size={16} />
-              Нууц үг
-            </label>
+          <div className="form-group">
+            <label>НУУЦ ҮГ</label>
             <input
               type="password"
               name="password"
@@ -107,24 +102,24 @@ export default function LoginPage() {
 
           <button 
             type="submit" 
-            className="auth-submit-btn"
+            className="auth-submit-btn-milwaukee"
             disabled={isLoading}
           >
             {isLoading ? (
               <>
                 <Loader2 size={18} className="spin" />
-                Нэвтэрч байна...
+                НЭВТЭРЧ БАЙНА...
               </>
             ) : (
-              'Нэвтрэх'
+              'НЭВТРЭХ'
             )}
           </button>
         </form>
 
-        <div className="auth-footer">
+        <div className="auth-footer-milwaukee">
           <p>
             Бүртгэл байхгүй юу?{' '}
-            <Link href="/register">Бүртгүүлэх</Link>
+            <Link href="/register">БҮРТГҮҮЛЭХ</Link>
           </p>
         </div>
       </div>

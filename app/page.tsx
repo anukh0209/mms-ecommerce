@@ -1,68 +1,18 @@
-import { Suspense } from 'react';
-import TopBar from '@/components/TopBar';
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import ProductSection from '@/components/ProductSection';
-import AboutSection from '@/components/AboutSection';
-import SolarProducts from '@/components/SolarProducts';
-import ContactSection from '@/components/ContactSection';
-import Footer from '@/components/Footer';
+import MilwaukeeHeader from '@/components/MilwaukeeHeader';
+import MilwaukeeHero from '@/components/MilwaukeeHero';
+import MilwaukeeProducts from '@/components/MilwaukeeProducts';
+import MilwaukeeContact from '@/components/MilwaukeeContact';
+import MilwaukeeFooter from '@/components/MilwaukeeFooter';
 import CartDrawer from '@/components/CartDrawer';
-import LoadingSkeleton from '@/components/LoadingSkeleton';
-import ErrorBoundary from '@/components/ErrorBoundary';
-import { fetchPages, fetchPageBySlug, fetchPosts, fetchMenus } from '@/lib/data';
 
-export default async function Home() {
-  const [pages, aboutPage, productsPage, contactPage, posts, menus] = await Promise.all([
-    fetchPages(),
-    fetchPageBySlug('about'),
-    fetchPageBySlug('products'),
-    fetchPageBySlug('contact'),
-    fetchPosts(),
-    fetchMenus(),
-  ]);
-
-  const headerMenus = menus.headerMenus;
-  const footerMenus = menus.footerMenus;
-
+export default function Home() {
   return (
     <main>
-      <ErrorBoundary>
-        <TopBar headerMenus={headerMenus} />
-      </ErrorBoundary>
-      
-      <ErrorBoundary>
-        <Header />
-      </ErrorBoundary>
-      
-      <ErrorBoundary>
-        <Hero page={pages.find((p: any) => p.slug === 'home')} />
-      </ErrorBoundary>
-      
-      <ErrorBoundary fallback={<LoadingSkeleton count={5} />}>
-        <Suspense fallback={<LoadingSkeleton count={5} />}>
-          <ProductSection page={productsPage} posts={posts} />
-        </Suspense>
-      </ErrorBoundary>
-      
-      <ErrorBoundary>
-        <AboutSection page={aboutPage} />
-      </ErrorBoundary>
-      
-      <ErrorBoundary fallback={<LoadingSkeleton count={6} />}>
-        <Suspense fallback={<LoadingSkeleton count={6} />}>
-          <SolarProducts posts={posts} />
-        </Suspense>
-      </ErrorBoundary>
-      
-      <ErrorBoundary>
-        <ContactSection page={contactPage} />
-      </ErrorBoundary>
-      
-      <ErrorBoundary>
-        <Footer footerMenus={footerMenus} />
-      </ErrorBoundary>
-
+      <MilwaukeeHeader />
+      <MilwaukeeHero />
+      <MilwaukeeProducts />
+      <MilwaukeeContact />
+      <MilwaukeeFooter />
       <CartDrawer />
     </main>
   );

@@ -80,20 +80,18 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <div className="auth-header">
-          <div className="auth-logo">MMS</div>
-          <h1>Бүртгүүлэх</h1>
+    <div className="auth-page-milwaukee">
+      <div className="auth-container-milwaukee">
+        <div className="auth-logo-milwaukee">MILWAUKEE</div>
+        
+        <div className="auth-header-milwaukee">
+          <h1>БҮРТГҮҮЛЭХ</h1>
           <p>Шинэ бүртгэл үүсгэнэ үү</p>
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className={`form-group ${errors.name ? 'error' : ''}`}>
-            <label>
-              <User size={16} />
-              Нэр
-            </label>
+        <form className="auth-form-milwaukee" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>НЭР</label>
             <input
               type="text"
               name="name"
@@ -105,11 +103,8 @@ export default function RegisterPage() {
             {errors.name && <span className="error-message">{errors.name}</span>}
           </div>
 
-          <div className={`form-group ${errors.email ? 'error' : ''}`}>
-            <label>
-              <Mail size={16} />
-              Имэйл хаяг
-            </label>
+          <div className="form-group">
+            <label>ИМЭЙЛ ХАЯГ</label>
             <input
               type="email"
               name="email"
@@ -121,11 +116,8 @@ export default function RegisterPage() {
             {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
 
-          <div className={`form-group ${errors.password ? 'error' : ''}`}>
-            <label>
-              <Lock size={16} />
-              Нууц үг
-            </label>
+          <div className="form-group">
+            <label>НУУЦ ҮГ</label>
             <input
               type="password"
               name="password"
@@ -137,11 +129,8 @@ export default function RegisterPage() {
             {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
 
-          <div className={`form-group ${errors.confirmPassword ? 'error' : ''}`}>
-            <label>
-              <Lock size={16} />
-              Нууц үг давтах
-            </label>
+          <div className="form-group">
+            <label>НУУЦ ҮГ ДАВТАХ</label>
             <input
               type="password"
               name="confirmPassword"
@@ -155,24 +144,24 @@ export default function RegisterPage() {
 
           <button 
             type="submit" 
-            className="auth-submit-btn"
+            className="auth-submit-btn-milwaukee"
             disabled={isLoading}
           >
             {isLoading ? (
               <>
                 <Loader2 size={18} className="spin" />
-                Бүртгэж байна...
+                БҮРТГЭЖ БАЙНА...
               </>
             ) : (
-              'Бүртгүүлэх'
+              'БҮРТГҮҮЛЭХ'
             )}
           </button>
         </form>
 
-        <div className="auth-footer">
+        <div className="auth-footer-milwaukee">
           <p>
             Бүртгэлтэй юу?{' '}
-            <Link href="/login">Нэвтрэх</Link>
+            <Link href="/login">НЭВТРЭХ</Link>
           </p>
         </div>
       </div>
