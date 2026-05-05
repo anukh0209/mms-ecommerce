@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { products as staticProducts } from '@/lib/products';
 import ProductCard from './ProductCard';
 
@@ -24,17 +24,42 @@ interface FeaturedProductsProps {
   posts?: Post[];
 }
 
+const categoryFilters = [
+  { label: 'БҮГД', value: '' },
+  { label: 'SWITCHBOARD', value: 'switchboard' },
+  { label: 'SOLAR SYSTEM', value: 'solar' },
+  { label: 'CABLE', value: 'cable' },
+  { label: 'BATTERY TOOLS', value: 'battery' },
+  { label: 'LV & MV POWER', value: 'power' },
+  { label: 'LIGHTING DESIGN', value: 'lighting' },
+  { label: 'POWER CONNECTION', value: 'connection' },
+  { label: 'AUTOMATION CONTROL', value: 'automation' },
+  { label: 'ХЯМДРАЛТАЙ', value: 'sale' },
+];
+
 export default function FeaturedProducts({ page, posts = [] }: FeaturedProductsProps) {
-  const [filteredProducts, setFilteredProducts] = useState(staticProducts);
+  const [activeCategory, setActiveCategory] = useState('');
+  const [isAnimating, setIsAnimating] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const filterProducts = (category: string) => {
-    if (category === 'sale') {
-      setFilteredProducts(staticProducts.filter(p => p.discount > 0));
-    } else if (category) {
-      setFilteredProducts(staticProducts.filter(p => p.category === category));
-    } else {
-      setFilteredProducts(staticProducts);
+    if (category === activeCategory) return;
+    
+    setIsAnimating(true);
+    setActiveCategory(category);
+    
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 300);
+  };
+
+  const getFilteredProducts = () => {
+    if (activeCategory === 'sale') {
+      return staticProducts.filter(p => p.discount > 0);
+    } else if (activeCategory) {
+      return staticProducts.filter(p => p.category === activeCategory);
     }
+    return staticProducts;
   };
 
   const displayPosts = posts.length > 0 
@@ -49,7 +74,7 @@ export default function FeaturedProducts({ page, posts = [] }: FeaturedProductsP
         category: 'general',
         image: null
       }))
-    : filteredProducts;
+    : getFilteredProducts();
 
   return (
     <section className="featured-products" id="products">
@@ -62,8 +87,24 @@ export default function FeaturedProducts({ page, posts = [] }: FeaturedProductsP
             style={{ marginBottom: '20px' }}
           />
         )}
+
+        <div className="category-filters">
+          {categoryFilters.map((cat) => (
+            <button
+              key={cat.value}
+              className={`filter-btn ${activeCategory === cat.value ? 'active' : ''}`}
+              onClick={() => filterProducts(cat.value)}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
         
-        <div className="products-grid" id="featuredGrid">
+        <div 
+          className={`products-grid ${isAnimating ? 'filtering' : ''}`} 
+          id="featuredGrid"
+          ref={gridRef}
+        >
           {displayPosts.map((product, index) => (
             <ProductCard key={`${product.id}-${index}`} product={product} />
           ))}

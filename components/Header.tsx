@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Grid3X3, ChevronDown, Search, Headset, MessageSquare, Percent } from 'lucide-react';
+import { Grid3X3, ChevronDown, Search, Headset, MessageSquare, Percent, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/lib/cart-context';
 
 export default function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { totalItems, setIsCartOpen } = useCart();
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -84,6 +86,16 @@ export default function Header() {
             <button className="icon-btn"><Headset size={18} /></button>
             <button className="icon-btn"><MessageSquare size={18} /></button>
             <button className="icon-btn sale-icon"><Percent size={18} /></button>
+            <button 
+              className="icon-btn cart-icon" 
+              onClick={() => setIsCartOpen(true)}
+              style={{ position: 'relative' }}
+            >
+              <ShoppingCart size={18} />
+              {totalItems > 0 && (
+                <span className="cart-badge">{totalItems}</span>
+              )}
+            </button>
           </div>
         </div>
       </div>

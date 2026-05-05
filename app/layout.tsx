@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { CartProvider } from "@/lib/cart-context";
+import { ToastProvider } from "@/lib/toast-context";
 
 export const metadata: Metadata = {
   title: "MMS - The Future Is Electric",
@@ -13,7 +15,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="mn">
-      <body>{children}</body>
+      <body>
+        <CartProvider>
+          <ToastProvider>
+            {children}
+          </ToastProvider>
+        </CartProvider>
+      </body>
     </html>
   );
 }

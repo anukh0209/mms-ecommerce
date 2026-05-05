@@ -8,6 +8,7 @@ import AboutSection from '@/components/AboutSection';
 import SolarProducts from '@/components/SolarProducts';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import CartDrawer from '@/components/CartDrawer';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { fetchPages, fetchPageBySlug, fetchPosts, fetchMenus } from '@/lib/data';
@@ -79,6 +80,8 @@ export default async function Home() {
       <ErrorBoundary>
         <Footer footerMenus={footerMenus} />
       </ErrorBoundary>
+
+      <CartDrawer />
     </main>
   );
 }
