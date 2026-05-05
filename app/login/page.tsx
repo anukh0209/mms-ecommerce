@@ -66,21 +66,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="auth-page-milwaukee">
-      <div className="auth-container-milwaukee">
-        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#999', textDecoration: 'none', marginBottom: '20px', fontSize: '14px' }}>
+    <div className="auth-page">
+      <div className="auth-box">
+        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--gray-500)', textDecoration: 'none', marginBottom: '20px', fontSize: '14px' }}>
           <ArrowLeft size={18} />
           Back
         </Link>
         
-        <div className="auth-logo-milwaukee">MMS</div>
+        <div className="auth-logo">MMS</div>
         
-        <div className="auth-header-milwaukee">
+        <div className="auth-header">
           <h1>{t.login}</h1>
           <p>{t.loginDescription}</p>
         </div>
 
-        <form className="auth-form-milwaukee" onSubmit={handleSubmit}>
+        <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>{t.email}</label>
             <input
@@ -91,7 +91,7 @@ export default function LoginPage() {
               onChange={handleChange}
               disabled={isLoading}
             />
-            {errors.email && <span className="error-message">{errors.email}</span>}
+            {errors.email && <span className="error">{errors.email}</span>}
           </div>
 
           <div className="form-group">
@@ -104,12 +104,12 @@ export default function LoginPage() {
               onChange={handleChange}
               disabled={isLoading}
             />
-            {errors.password && <span className="error-message">{errors.password}</span>}
+            {errors.password && <span className="error">{errors.password}</span>}
           </div>
 
           <button 
             type="submit" 
-            className="auth-submit-btn-milwaukee"
+            className="btn-auth"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -123,7 +123,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="auth-footer-milwaukee">
+        <div className="auth-footer">
           <p>
             {t.noAccount}{' '}
             <Link href="/register">{t.register}</Link>

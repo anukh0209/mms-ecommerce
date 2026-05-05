@@ -40,7 +40,7 @@ export default function CartDrawer() {
       <div className="cart-overlay" onClick={() => setIsCartOpen(false)} />
       <div className="cart-drawer">
         <div className="cart-header">
-          <div className="cart-title">
+          <div style={{ fontSize: '20px', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '10px' }}>
             <ShoppingCart size={22} />
             <span>{t.cartTitle} ({totalItems})</span>
           </div>
@@ -71,7 +71,7 @@ export default function CartDrawer() {
                   </div>
                   <div className="cart-item-info">
                     <div className="cart-item-name">{item.name}</div>
-                    <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px' }}>{item.code}</div>
+                    <div style={{ fontSize: '12px', color: 'var(--gray-400)', marginBottom: '5px' }}>{item.code}</div>
                     <div className="cart-item-price">{formatPrice(item.price)}</div>
                     <div className="cart-item-actions">
                       <button
@@ -111,7 +111,7 @@ export default function CartDrawer() {
             <div className="cart-footer">
               <div className="cart-total">
                 <span>{t.total}</span>
-                <span className="total-price">{formatPrice(totalPrice)}</span>
+                <span style={{ color: 'var(--primary-dark)' }}>{formatPrice(totalPrice)}</span>
               </div>
               
               {!isAuthenticated && (
@@ -120,15 +120,16 @@ export default function CartDrawer() {
                   alignItems: 'center',
                   gap: '10px',
                   padding: '12px',
-                  background: '#fff3e0',
+                  background: 'rgba(34, 197, 94, 0.08)',
                   borderRadius: '8px',
                   marginBottom: '15px',
                   fontSize: '13px',
-                  fontWeight: 600
+                  fontWeight: 600,
+                  color: 'var(--gray-700)'
                 }}>
-                  <Lock size={18} color="#E53935" />
+                  <Lock size={18} color="#22c55e" />
                   <span>{t.loginRequired}{' '}
-                    <Link href="/login" onClick={() => setIsCartOpen(false)} style={{ color: '#E53935', fontWeight: '800' }}>
+                    <Link href="/login" onClick={() => setIsCartOpen(false)} style={{ color: '#22c55e', fontWeight: '800' }}>
                       Login
                     </Link>
                   </span>
@@ -142,7 +143,7 @@ export default function CartDrawer() {
               >
                 {t.checkout}
               </button>
-              <button className="btn-clear" onClick={handleClearCart}>
+              <button className="btn-clear-cart" onClick={handleClearCart}>
                 {t.clearCart}
               </button>
             </div>

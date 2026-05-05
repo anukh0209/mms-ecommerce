@@ -1,61 +1,56 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import Link from 'next/link';
-import MilwaukeeProductCard from './MilwaukeeProductCard';
-import { products as staticProducts } from '@/lib/products';
+import { useState } from 'react';
+import ProductCard from './ProductCard';
+import { products as allProducts } from '@/lib/products';
 import { useLanguage } from '@/lib/language-context';
+import { Sun, CircuitBoard, Battery, Cable, Building2, Pickaxe } from 'lucide-react';
 
-interface Category {
+interface CategoryDef {
+  id: string;
   label: string;
   value: string;
-  icon: string;
+  icon: React.ReactNode;
 }
 
-export default function MilwaukeeProducts() {
+export default function ProductSections() {
   const { t } = useLanguage();
-  const [activeCategory, setActiveCategory] = useState('');
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('');
 
-  const categories: Category[] = [
-    { label: t.solar, value: 'solar', icon: '☀️' },
-    { label: t.switchboard, value: 'switchboard', icon: '⚡' },
-    { label: t.battery, value: 'battery', icon: '🔋' },
-    { label: t.cable, value: 'cable', icon: '🔌' },
-    { label: t.construction, value: '', icon: '🏗️' },
-    { label: t.mining, value: '', icon: '⛏️' },
+  const categories: CategoryDef[] = [
+    { id: 'solar', label: t.solar, value: 'solar', icon: <Sun size={24} /> },
+    { id: 'switchboard', label: t.switchboard, value: 'switchboard', icon: <CircuitBoard size={24} /> },
+    { id: 'battery', label: t.battery, value: 'battery', icon: <Battery size={24} /> },
+    { id: 'cable', label: t.cable, value: 'cable', icon: <Cable size={24} /> },
+    { id: 'construction', label: t.construction, value: 'construction', icon: <Building2 size={24} /> },
+    { id: 'mining', label: t.mining, value: 'mining', icon: <Pickaxe size={24} /> },
   ];
 
-  const handleCategoryClick = useCallback((categoryValue: string) => {
-    const newCategory = activeCategory === categoryValue ? '' : categoryValue;
-    setIsAnimating(true);
-    setActiveCategory(newCategory);
-    
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 300);
+  const getProductsByCategory = (categoryValue: string) => {
+    return allProducts.filter(p => p.category === categoryValue);
+  };
 
-    // Scroll to products
-    const productsSection = document.getElementById('products');
-    if (productsSection) {
-      const headerOffset = 120;
-      const elementPosition = productsSection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+  const handleCategoryClick = (categoryId: string) => {
+    if (activeFilter === categoryId) {
+      setActiveFilter('');
+    } else {
+      setActiveFilter(categoryId);
     }
-  }, [activeCategory]);
-
-  const filteredProducts = activeCategory
-    ? staticProducts.filter(p => p.category === activeCategory || (activeCategory === 'power-tools' && ['battery', 'switchboard'].includes(p.category)))
-    : staticProducts;
+    
+    const sectionId = `section-${categoryId}`;
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 140;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
+  };
 
   return (
     <>
-      {/* Category Section */}
-      <section className="category-section">
+      {/* Categories */}
+      <section className="category-section" id="categories">
         <div className="container">
           <div className="section-header">
             <h2 className="section-title">{t.categories}</h2>
@@ -63,34 +58,53 @@ export default function MilwaukeeProducts() {
           <div className="category-grid">
             {categories.map((cat) => (
               <div
-                key={cat.value}
-                className={`category-card ${activeCategory === cat.value ? 'active' : ''}`}
-                onClick={() => handleCategoryClick(cat.value)}
-                style={activeCategory === cat.value ? { borderColor: '#D31145' } : undefined}
+                key={cat.id}
+                className={`category-card ${activeFilter === cat.id ? 'active' : ''}`}
+                onClick={() => handleCategoryClick(cat.id)}
               >
-                <div className="category-card-icon">{cat.icon}</div>
-                <div className="category-card-title">{cat.label}</div>
+                <div className="category-icon">{cat.icon}</div>
+                <div className="category-title">{cat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Products Section */}
-      <section className="products-section" id="products">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">{t.newArrivals}</h2>
-            <Link href="/products" className="section-link">{t.viewAll} →</Link>
-          </div>
+      {/* Product Sections by Category */}
+      {categories.map((cat, index) => {
+        const catProducts = getProductsByCategory(cat.value);
+        if (catProducts.length === 0 && activeFilter && activeFilter !== cat.id) return null;
+        if (activeFilter && activeFilter !== cat.id) return null;
 
-          <div className={`products-grid ${isAnimating ? 'filtering' : ''}`}>
-            {filteredProducts.map((product) => (
-              <MilwaukeeProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
+        return (
+          <section
+            key={cat.id}
+            className="product-section"
+            id={`section-${cat.id}`}
+            style={{ background: index % 2 === 0 ? 'var(--white)' : 'var(--gray-50)' }}
+          >
+            <div className="container">
+              <div className="product-section-header">
+                <div className="product-section-icon">{cat.icon}</div>
+                <h2 className="product-section-title">{cat.label}</h2>
+              </div>
+              
+              {catProducts.length > 0 ? (
+                <div className="products-grid">
+                  {catProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              ) : (
+                <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--gray-400)' }}>
+                  <p style={{ fontSize: '18px', fontWeight: '600' }}>Бүтээгдэхүүн олдсонгүй</p>
+                  <p style={{ marginTop: '8px' }}>Тун удахгүй нэмэгдэнэ</p>
+                </div>
+              )}
+            </div>
+          </section>
+        );
+      })}
     </>
   );
 }
