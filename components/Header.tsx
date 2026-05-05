@@ -1,13 +1,18 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Grid3X3, ChevronDown, Search, Headset, MessageSquare, Percent, ShoppingCart } from 'lucide-react';
+import Link from 'next/link';
+import { Grid3X3, ChevronDown, Search, Headset, MessageSquare, Percent, ShoppingCart, User, LogOut } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
+import { useAuth } from '@/lib/auth-context';
+import { useToast } from '@/lib/toast-context';
 
 export default function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { totalItems, setIsCartOpen } = useCart();
+  const { user, isAuthenticated, logout } = useAuth();
+  const { showToast } = useToast();
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -33,6 +38,19 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const handleLogout = () => {
+    logout();
+    showToast('Амжилттай гарлаа', 'info');
+  };
+
+  const handleCartClick = () => {
+    if (!isAuthenticated) {
+      showToast('Сагс харахын тулд нэвтэрнэ үү', 'error');
+      return;
+    }
+    setIsCartOpen(true);
+  };
+
   const categories = [
     { name: 'Switchboard', cat: 'switchboard' },
     { name: 'Solar system', cat: 'solar' },
@@ -48,11 +66,13 @@ export default function Header() {
     <header className="main-header">
       <div className="container">
         <div className="logo">
-          <div className="logo-circle">MMS</div>
-          <div className="logo-text">
-            <div>THE FUTURE IS</div>
-            <div>ELECTRIC</div>
-          </div>
+          <Link href="/" className="logo-link">
+            <div className="logo-circle">MMS</div>
+            <div className="logo-text">
+              <div>THE FUTURE IS</div>
+              <div>ELECTRIC</div>
+            </div>
+          </Link>
         </div>
         
         <div className="header-center">
@@ -88,7 +108,7 @@ export default function Header() {
             <button className="icon-btn sale-icon"><Percent size={18} /></button>
             <button 
               className="icon-btn cart-icon" 
-              onClick={() => setIsCartOpen(true)}
+              onClick={handleCartClick}
               style={{ position: 'relative' }}
             >
               <ShoppingCart size={18} />
@@ -96,6 +116,27 @@ export default function Header() {
                 <span className="cart-badge">{totalItems}</span>
               )}
             </button>
+            
+            {isAuthenticated && user ? (
+              <div className="auth-user-menu">
+                <div className="user-info">
+                  <User size={16} />
+                  <span className="user-name">{user.name}</span>
+                </div>
+                <button className="icon-btn logout-btn" onClick={handleLogout}>
+                  <LogOut size={18} />
+                </button>
+              </div>
+            ) : (
+              <div className="auth-buttons">
+                <Link href="/login" className="auth-btn">
+                  Нэвтрэх
+                </Link>
+                <Link href="/register" className="auth-btn primary">
+                  Бүртгүүлэх
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

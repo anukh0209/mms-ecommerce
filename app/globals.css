@@ -1092,8 +1092,311 @@ body {
   animation: toastSlideIn 0.3s ease;
 }
 
-/* Responsive for cart */
+/* Auth Styles */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-light);
+  padding: 40px 20px;
+}
+
+.auth-container {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-logo {
+  width: 60px;
+  height: 60px;
+  border: 3px solid var(--primary-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--primary-blue);
+  margin: 0 auto 15px;
+  font-size: 18px;
+}
+
+.auth-header h1 {
+  font-size: 24px;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.auth-header p {
+  color: var(--text-gray);
+  font-size: 14px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-form .form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.auth-form .form-group label svg {
+  width: 16px;
+  height: 16px;
+  color: var(--text-gray);
+}
+
+.auth-form .form-group input {
+  padding: 12px 14px;
+  border: 1px solid var(--border-gray);
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: var(--white);
+}
+
+.auth-form .form-group input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(30, 90, 168, 0.1);
+}
+
+.auth-form .form-group.error input {
+  border-color: var(--sale-red);
+}
+
+.auth-form .form-group.error input:focus {
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+}
+
+.error-message {
+  font-size: 13px;
+  color: var(--sale-red);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.auth-submit-btn {
+  background: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s;
+  margin-top: 10px;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background: #164a8a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30, 90, 168, 0.3);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-gray);
+}
+
+.auth-footer p {
+  font-size: 14px;
+  color: var(--text-gray);
+}
+
+.auth-footer a {
+  color: var(--primary-blue);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Header Auth */
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.auth-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.auth-btn:not(.primary) {
+  color: var(--text-dark);
+  border: 1px solid var(--border-gray);
+  background: var(--white);
+}
+
+.auth-btn:not(.primary):hover {
+  background: var(--bg-light);
+}
+
+.auth-btn.primary {
+  background: var(--primary-blue);
+  color: var(--white);
+  border: 1px solid var(--primary-blue);
+}
+
+.auth-btn.primary:hover {
+  background: #164a8a;
+}
+
+.auth-user-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--bg-light);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.user-info svg {
+  width: 16px;
+  height: 16px;
+  color: var(--primary-blue);
+}
+
+.logout-btn {
+  color: var(--sale-red) !important;
+}
+
+.logout-btn:hover {
+  background: #ffebee !important;
+}
+
+/* Cart Auth Required */
+.cart-auth-required {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  background: #fff3e0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #e65100;
+}
+
+.cart-auth-required a {
+  color: var(--primary-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cart-auth-required a:hover {
+  text-decoration: underline;
+}
+
+.btn-checkout.disabled {
+  background: var(--text-gray);
+  cursor: not-allowed;
+}
+
+.btn-checkout.disabled:hover {
+  background: var(--text-gray);
+}
+
+/* Spin Animation */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive for auth */
 @media (max-width: 600px) {
+  .auth-container {
+    padding: 30px 20px;
+  }
+  
+  .auth-header h1 {
+    font-size: 20px;
+  }
+  
+  .auth-buttons {
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .auth-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .auth-user-menu {
+    gap: 4px;
+  }
+  
+  .user-name {
+    display: none;
+  }
+  
   .cart-drawer {
     width: 100%;
     max-width: 100vw;

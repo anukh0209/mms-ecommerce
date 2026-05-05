@@ -1,11 +1,25 @@
 'use client';
 
 import { useCart } from '@/lib/cart-context';
+import { useAuth } from '@/lib/auth-context';
+import { useToast } from '@/lib/toast-context';
 import { formatPrice } from '@/lib/products';
-import { X, Plus, Minus, ShoppingCart, Trash2 } from 'lucide-react';
+import { X, Plus, Minus, ShoppingCart, Trash2, Lock } from 'lucide-react';
+import Link from 'next/link';
 
 export default function CartDrawer() {
   const { items, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, totalItems, totalPrice, clearCart } = useCart();
+  const { isAuthenticated } = useAuth();
+  const { showToast } = useToast();
+
+  const handleCheckout = () => {
+    if (!isAuthenticated) {
+      showToast('Төлбөр төлөхийн тулд нэвтэрнэ үү', 'error');
+      setIsCartOpen(false);
+      return;
+    }
+    showToast('Төлбөр төлөх хэсэг (хөгжүүлэлтэд)', 'info');
+  };
 
   if (!isCartOpen) return null;
 
@@ -73,8 +87,19 @@ export default function CartDrawer() {
                 <span>Нийт:</span>
                 <span className="total-price">{formatPrice(totalPrice)}</span>
               </div>
-              <button className="btn-checkout">
-                Төлбөр төлөх
+              
+              {!isAuthenticated && (
+                <div className="cart-auth-required">
+                  <Lock size={16} />
+                  <span>Төлбөр төлөхийн тулд{' '}<Link href="/login" onClick={() => setIsCartOpen(false)}>нэвтэрнэ үү</Link></span>
+                </div>
+              )}
+              
+              <button 
+                className={`btn-checkout ${!isAuthenticated ? 'disabled' : ''}`}
+                onClick={handleCheckout}
+              >
+                {isAuthenticated ? 'Төлбөр төлөх' : 'Төлбөр төлөх (Нэвтэрнэ үү)'}
               </button>
               <button className="btn-clear" onClick={clearCart}>
                 Сагс хоослох
