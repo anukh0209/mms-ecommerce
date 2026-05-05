@@ -2,8 +2,7 @@ import { Suspense } from 'react';
 import TopBar from '@/components/TopBar';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import CategoryIcons from '@/components/CategoryIcons';
-import FeaturedProducts from '@/components/FeaturedProducts';
+import ProductSection from '@/components/ProductSection';
 import AboutSection from '@/components/AboutSection';
 import SolarProducts from '@/components/SolarProducts';
 import ContactSection from '@/components/ContactSection';
@@ -40,26 +39,9 @@ export default async function Home() {
         <Hero page={pages.find((p: any) => p.slug === 'home')} />
       </ErrorBoundary>
       
-      <ErrorBoundary>
-        <CategoryIcons />
-      </ErrorBoundary>
-      
       <ErrorBoundary fallback={<LoadingSkeleton count={5} />}>
         <Suspense fallback={<LoadingSkeleton count={5} />}>
-          <FeaturedProducts page={productsPage} posts={posts} />
-        </Suspense>
-      </ErrorBoundary>
-      
-      <ErrorBoundary fallback={<LoadingSkeleton count={5} />}>
-        <Suspense fallback={<LoadingSkeleton count={5} />}>
-          <section className="new-products" id="new-products">
-            <div className="container">
-              <h3 className="section-label">САРГЭЭГДЭХ ЭРИМ ХҮЧ</h3>
-              <div className="products-grid" id="newGrid">
-                <FeaturedProducts page={productsPage} posts={posts.slice(0, 5)} />
-              </div>
-            </div>
-          </section>
+          <ProductSection page={productsPage} posts={posts} />
         </Suspense>
       </ErrorBoundary>
       

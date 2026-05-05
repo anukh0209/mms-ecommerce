@@ -279,12 +279,42 @@ body {
 
 .icon-card {
   text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s;
+  cursor: default;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px;
+  border-radius: 15px;
+  position: relative;
 }
 
-.icon-card:hover {
+.icon-card.clickable {
+  cursor: pointer;
+}
+
+.icon-card.clickable:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(30, 90, 168, 0.15);
+}
+
+.icon-card.clickable:hover .icon-placeholder {
+  background: var(--primary-blue);
+  color: var(--white);
+}
+
+.icon-card.active {
   transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(30, 90, 168, 0.2);
+  background: rgba(30, 90, 168, 0.05);
+}
+
+.icon-card.active .icon-placeholder {
+  background: var(--primary-blue);
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(30, 90, 168, 0.3);
+}
+
+.icon-card.active span {
+  color: var(--primary-blue);
+  font-weight: 700;
 }
 
 .icon-placeholder {
@@ -293,11 +323,39 @@ body {
   background: var(--bg-light);
   border-radius: 15px;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-placeholder::before {
+  content: attr(data-icon);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .icon-card span {
   font-size: 14px;
   color: var(--text-dark);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+/* Category card selection animation */
+@keyframes categoryPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.icon-card:active {
+  animation: categoryPulse 0.2s ease;
 }
 
 /* Products Grid */

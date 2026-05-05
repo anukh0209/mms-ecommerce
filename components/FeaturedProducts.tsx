@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { products as staticProducts } from '@/lib/products';
 import ProductCard from './ProductCard';
 
@@ -22,6 +22,7 @@ interface Page {
 interface FeaturedProductsProps {
   page?: Page | null;
   posts?: Post[];
+  activeCategory?: string;
 }
 
 const categoryFilters = [
@@ -37,10 +38,22 @@ const categoryFilters = [
   { label: 'ХЯМДРАЛТАЙ', value: 'sale' },
 ];
 
-export default function FeaturedProducts({ page, posts = [] }: FeaturedProductsProps) {
-  const [activeCategory, setActiveCategory] = useState('');
+export default function FeaturedProducts({ page, posts = [], activeCategory: externalCategory = '' }: FeaturedProductsProps) {
+  const [activeCategory, setActiveCategory] = useState(externalCategory);
   const [isAnimating, setIsAnimating] = useState(false);
-  const gridRef = useRef<HTMLDivElement>(null);
+
+  // Sync with external category from CategoryIcons
+  useEffect(() => {
+    if (externalCategory !== activeCategory) {
+      setIsAnimating(true);
+      setActiveCategory(externalCategory);
+      
+      const timer = setTimeout(() => {
+        setIsAnimating(false);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [externalCategory]);
 
   const filterProducts = (category: string) => {
     if (category === activeCategory) return;
@@ -103,7 +116,6 @@ export default function FeaturedProducts({ page, posts = [] }: FeaturedProductsP
         <div 
           className={`products-grid ${isAnimating ? 'filtering' : ''}`} 
           id="featuredGrid"
-          ref={gridRef}
         >
           {displayPosts.map((product, index) => (
             <ProductCard key={`${product.id}-${index}`} product={product} />
