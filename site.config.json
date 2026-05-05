@@ -1,0 +1,17 @@
+{
+  "name": "mms",
+  "template_type": "ecommerce",
+  "tone": "modern",
+  "language": "mn",
+  "languages": ["mn", "en"],
+  "sections": ["hero", "about", "products", "contact"],
+  "client_portal_id": "akIbZDrrvIy2JAWKodjAs",
+  "erxes_endpoint": "https://energycastle.next.erxes.io/gateway/graphql",
+  "erxes_app_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRQb3J0YWxJZCI6ImFrSWJaRHJydkl5MkpBV0tvZGpBcyIsImlhdCI6MTc3Nzg4MjM5OH0.dJ_1ZHUhv-AVWT8JxNQxbfbBvXolvzD0UCkWo64fGXQ",
+  "erxes_cms_id": "69f8575df584ac54c99eec4e",
+  "color_hint": "blue",
+  "extra_notes": "MMS E-commerce - Electrical products for Mining, Construction and Energy sector of Mongolia",
+  "deploy_target": "vercel",
+  "ui_source": "screenshot",
+  "ui_source_ref": "PDF design screenshots"
+}
