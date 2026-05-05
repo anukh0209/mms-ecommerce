@@ -107,6 +107,20 @@ export default function LoginPage() {
             {errors.password && <span className="error">{errors.password}</span>}
           </div>
 
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
+            <Link 
+              href="/forgot-password" 
+              style={{ 
+                fontSize: '13px', 
+                color: 'var(--primary)', 
+                textDecoration: 'none',
+                fontWeight: '600'
+              }}
+            >
+              {t.forgotPassword}
+            </Link>
+          </div>
+
           <button 
             type="submit" 
             className="btn-auth"

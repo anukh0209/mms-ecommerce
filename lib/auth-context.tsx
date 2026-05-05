@@ -21,6 +21,8 @@ interface AuthContextType extends AuthState {
   login: (email: string, password: string) => Promise<{ success: boolean; message: string }>;
   register: (name: string, email: string, password: string) => Promise<{ success: boolean; message: string }>;
   logout: () => void;
+  forgotPassword: (email: string) => Promise<{ success: boolean; message: string }>;
+  resetPassword: (email: string, newPassword: string) => Promise<{ success: boolean; message: string }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -130,8 +132,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const forgotPassword = useCallback(async (email: string): Promise<{ success: boolean; message: string }> => {
+    const users = getStoredUsers();
+    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+    if (!user) {
+      return { success: false, message: 'Энэ имэйл хаяг бүртгэлгүй байна' };
+    }
+
+    return { success: true, message: 'Нууц үг шинэчлэх холбоосыг имэйл рүү илгээлээ' };
+  }, []);
+
+  const resetPassword = useCallback(async (email: string, newPassword: string): Promise<{ success: boolean; message: string }> => {
+    const users = getStoredUsers();
+    const userIndex = users.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+
+    if (userIndex === -1) {
+      return { success: false, message: 'Хэрэглэгч олдсонгүй' };
+    }
+
+    users[userIndex].passwordHash = hashPassword(newPassword);
+    saveUsers(users);
+
+    return { success: true, message: 'Нууц үг амжилттай шинэчлэгдлээ' };
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ ...state, login, register, logout }}>
+    <AuthContext.Provider value={{ ...state, login, register, logout, forgotPassword, resetPassword }}>
       {children}
     </AuthContext.Provider>
   );

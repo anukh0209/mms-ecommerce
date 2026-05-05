@@ -93,6 +93,16 @@ export const translations = {
     loginRequiredCart: 'Please login to view cart',
     loginRequiredAdd: 'Please login to add to cart',
     
+    // Forgot Password
+    forgotPassword: 'Forgot Password?',
+    forgotPasswordDescription: 'Enter your email and we\'ll send you instructions to reset your password.',
+    sendResetLink: 'Send Reset Link',
+    resetLinkSent: 'Reset link sent!',
+    checkYourEmail: 'Check Your Email',
+    resetInstructions: 'We\'ve sent password reset instructions to your email address.',
+    rememberPassword: 'Remember your password?',
+    backToLogin: 'Back to Login',
+    
     // Footer
     products: 'Products',
     company: 'Company',
@@ -208,6 +218,16 @@ export const translations = {
     loginRequiredCart: 'Сагс харахын тулд нэвтэрнэ үү',
     loginRequiredAdd: 'Сагсанд нэмэхийн тулд нэвтэрнэ үү',
     
+    // Forgot Password
+    forgotPassword: 'Нууц үгээ мартсан уу?',
+    forgotPasswordDescription: 'Имэйл хаягаа оруулна уу, бид нууц үгээ шинэчлэх зааврыг илгээх болно.',
+    sendResetLink: 'Шинэчлэх холбоос илгээх',
+    resetLinkSent: 'Шинэчлэх холбоос илгээгдлээ!',
+    checkYourEmail: 'Имэйл шалгана уу',
+    resetInstructions: 'Бид таны имэйл хаяг руу нууц үг шинэчлэх зааврыг илгээлээ.',
+    rememberPassword: 'Нууц үгээ санаж байна уу?',
+    backToLogin: 'Нэвтрэх хуудас руу буцах',
+    
     // Footer
     products: 'БҮТЭЭГДЭХҮҮН',
     company: 'КОМПАНИ',
@@ -322,6 +342,16 @@ export const translations = {
     registerSuccess: '注册成功！正在跳转到登录页面...',
     loginRequiredCart: '请登录以查看购物车',
     loginRequiredAdd: '请登录以添加到购物车',
+    
+    // Forgot Password
+    forgotPassword: '忘记密码？',
+    forgotPasswordDescription: '输入您的邮箱，我们将发送重置密码的说明。',
+    sendResetLink: '发送重置链接',
+    resetLinkSent: '重置链接已发送！',
+    checkYourEmail: '查看您的邮箱',
+    resetInstructions: '我们已向您的邮箱发送了密码重置说明。',
+    rememberPassword: '记得密码？',
+    backToLogin: '返回登录',
     
     // Footer
     products: '产品',
