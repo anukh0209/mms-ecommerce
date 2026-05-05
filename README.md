@@ -10,6 +10,7 @@ Production-ready Next.js React application for MMS LLC - an electrical products 
 - **Language**: TypeScript
 - **Styling**: CSS Modules + Global CSS
 - **Icons**: Lucide React
+- **CMS**: erxes (via Apollo Client + GraphQL)
 - **Deployment**: Vercel
 
 ## Project Structure
@@ -17,10 +18,11 @@ Production-ready Next.js React application for MMS LLC - an electrical products 
 ```
 mms-react/
 ├── app/
-│   ├── layout.tsx          # Root layout with metadata
+│   ├── layout.tsx          # Root layout with Apollo Provider
 │   ├── page.tsx            # Main page (Home)
 │   └── globals.css         # Global styles
 ├── components/
+│   ├── ApolloWrapper.tsx   # Apollo Client provider wrapper
 │   ├── TopBar.tsx          # Top navigation bar
 │   ├── Header.tsx          # Main header with search & categories
 │   ├── Hero.tsx            # Hero banner section
@@ -32,8 +34,12 @@ mms-react/
 │   ├── ContactSection.tsx  # Contact form
 │   └── Footer.tsx          # Footer
 ├── lib/
+│   ├── apollo.ts           # Apollo Client configuration
+│   ├── queries.ts          # GraphQL queries for erxes CMS
 │   └── products.ts         # Product data & utilities
 ├── public/                 # Static assets
+├── site.config.json        # erxes CMS configuration
+├── .env                    # Environment variables (erxes tokens)
 ├── next.config.js          # Next.js configuration
 ├── package.json            # Dependencies
 ├── tsconfig.json           # TypeScript config
@@ -49,6 +55,7 @@ mms-react/
 - Category dropdown menu
 - Search bar UI
 - Multi-section landing page
+- **erxes CMS Integration** - Fetch content dynamically from erxes CMS
 
 ## Getting Started
 
@@ -147,12 +154,65 @@ vercel --prod dist/
 
 ## Environment Variables
 
-Create a `.env.local` file for local development:
+Create a `.env.local` file for local development (or use the existing `.env`):
 
 ```env
-# Add any API keys or configuration here
-# Example:
-# NEXT_PUBLIC_API_URL=https://api.example.com
+# erxes CMS Connection
+NEXT_PUBLIC_ERXES_ENDPOINT=https://energycastle.next.erxes.io/gateway/graphql
+NEXT_PUBLIC_ERXES_APP_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+NEXT_PUBLIC_ERXES_CMS_ID=69f8575df584ac54c99eec4e
+NEXT_PUBLIC_ERXES_LANGUAGE=mn
+```
+
+## erxes CMS Integration
+
+This project connects to erxes CMS to fetch dynamic content:
+
+### Configuration Files
+
+- `site.config.json` - Contains erxes CMS configuration:
+  - `erxes_endpoint` - GraphQL API endpoint
+  - `erxes_app_token` - Authentication token
+  - `erxes_cms_id` - CMS ID
+  - `client_portal_id` - Client portal ID
+
+### GraphQL Queries
+
+Available in `lib/queries.ts`:
+- `GET_PAGES` - Fetch CMS pages
+- `GET_POSTS` - Fetch blog posts
+- `GET_MENUS` - Fetch navigation menus
+- `GET_PAGE_CONTENT` - Fetch specific page content
+
+### Apollo Client Setup
+
+The Apollo Client is configured in `lib/apollo.ts` with:
+- HTTP link to erxes GraphQL endpoint
+- Auth link with Bearer token authentication
+- InMemoryCache for caching
+
+### Usage Example
+
+```tsx
+import { useQuery } from '@apollo/client';
+import { GET_PAGES } from '@/lib/queries';
+
+function MyComponent() {
+  const { data, loading, error } = useQuery(GET_PAGES, {
+    variables: { language: 'mn' }
+  });
+  
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  
+  return (
+    <div>
+      {data?.cpPages?.map(page => (
+        <a key={page._id} href={`/${page.slug}`}>{page.name}</a>
+      ))}
+    </div>
+  );
+}
 ```
 
 ## Custom Domain (Optional)
