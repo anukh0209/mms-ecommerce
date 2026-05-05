@@ -3,7 +3,18 @@
 import { useState } from 'react';
 import { User, Phone, Mail, List, Edit, ArrowRight } from 'lucide-react';
 
-export default function ContactSection() {
+interface Page {
+  _id: string;
+  name: string;
+  slug: string;
+  content?: string;
+}
+
+interface ContactSectionProps {
+  page?: Page | null;
+}
+
+export default function ContactSection({ page }: ContactSectionProps) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -34,6 +45,13 @@ export default function ContactSection() {
   return (
     <section className="contact-section" id="contact">
       <div className="container">
+        {page?.content && (
+          <div 
+            dangerouslySetInnerHTML={{ __html: page.content }}
+            style={{ marginBottom: '30px' }}
+          />
+        )}
+        
         <form className="contact-form" id="contactForm" onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">

@@ -1,7 +1,19 @@
 import { solarProducts } from '@/lib/products';
 import ProductCard from './ProductCard';
 
-export default function SolarProducts() {
+interface Post {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  content?: string;
+}
+
+interface SolarProductsProps {
+  posts?: Post[];
+}
+
+export default function SolarProducts({ posts = [] }: SolarProductsProps) {
   const layers = [
     'Aluminium Frame',
     'Tempered Glass',
@@ -11,6 +23,20 @@ export default function SolarProducts() {
     'Back sheet',
     'Junction Box'
   ];
+
+  const displayProducts = posts.length > 0
+    ? posts.slice(0, 6).map((post, index) => ({
+        id: index + 100,
+        name: post.title,
+        code: post.slug.toUpperCase(),
+        stock: 1453,
+        price: 1250000,
+        originalPrice: 1500000,
+        discount: 20,
+        category: 'solar',
+        image: null
+      }))
+    : solarProducts;
 
   return (
     <section className="solar-products" id="solar-products">
@@ -24,7 +50,7 @@ export default function SolarProducts() {
           </div>
           <div className="products-main">
             <div className="products-grid small" id="solarGrid">
-              {solarProducts.map(product => (
+              {displayProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>

@@ -1,4 +1,15 @@
-export default function Footer() {
+interface MenuItem {
+  _id: string;
+  label: string;
+  url: string;
+  order: number;
+}
+
+interface FooterProps {
+  footerMenus?: MenuItem[];
+}
+
+export default function Footer({ footerMenus = [] }: FooterProps) {
   return (
     <footer className="main-footer">
       <div className="container">
@@ -14,6 +25,30 @@ export default function Footer() {
             <p>17101, Mongolia</p>
           </div>
         </div>
+        
+        {footerMenus.length > 0 && (
+          <div style={{ 
+            display: 'flex', 
+            gap: '20px', 
+            marginBottom: '20px',
+            flexWrap: 'wrap'
+          }}>
+            {footerMenus.sort((a, b) => a.order - b.order).map((menu) => (
+              <a 
+                key={menu._id}
+                href={menu.url}
+                style={{ 
+                  color: '#666', 
+                  textDecoration: 'none',
+                  fontSize: '14px'
+                }}
+              >
+                {menu.label}
+              </a>
+            ))}
+          </div>
+        )}
+        
         <div className="footer-bottom">
           <p>THE FUTURE IS ELECTRIC</p>
         </div>

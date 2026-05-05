@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ApolloWrapper from "@/components/ApolloWrapper";
 
 export const metadata: Metadata = {
   title: "MMS - The Future Is Electric",
@@ -14,11 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="mn">
-      <body>
-        <ApolloWrapper>
-          {children}
-        </ApolloWrapper>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
