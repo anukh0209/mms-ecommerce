@@ -5,12 +5,14 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth-context';
 import { useToast } from '@/lib/toast-context';
+import { useLanguage } from '@/lib/language-context';
 import { Mail, Lock, Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
   const { showToast } = useToast();
+  const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
@@ -22,13 +24,13 @@ export default function LoginPage() {
     const newErrors: Record<string, string> = {};
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Имэйл хаяг оруулна уу';
+      newErrors.email = t.required;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Зөв имэйл хаяг оруулна уу';
+      newErrors.email = t.invalidEmail;
     }
 
     if (!formData.password) {
-      newErrors.password = 'Нууц үг оруулна уу';
+      newErrors.password = t.required;
     }
 
     setErrors(newErrors);
@@ -44,10 +46,10 @@ export default function LoginPage() {
     setIsLoading(false);
 
     if (result.success) {
-      showToast(result.message, 'success');
+      showToast(t.loginSuccess, 'success');
       router.push('/');
     } else {
-      showToast(result.message, 'error');
+      showToast(t.invalidCredentials, 'error');
     }
   };
 
@@ -69,13 +71,13 @@ export default function LoginPage() {
         <div className="auth-logo-milwaukee">MMS</div>
         
         <div className="auth-header-milwaukee">
-          <h1>НЭВТРЭХ</h1>
-          <p>Бүртгэлээ ашиглан нэвтэрнэ үү</p>
+          <h1>{t.login}</h1>
+          <p>{t.loginDescription}</p>
         </div>
 
         <form className="auth-form-milwaukee" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>ИМЭЙЛ ХАЯГ</label>
+            <label>{t.email}</label>
             <input
               type="email"
               name="email"
@@ -88,11 +90,11 @@ export default function LoginPage() {
           </div>
 
           <div className="form-group">
-            <label>НУУЦ ҮГ</label>
+            <label>{t.password}</label>
             <input
               type="password"
               name="password"
-              placeholder="Нууц үгээ оруулна уу"
+              placeholder={t.password}
               value={formData.password}
               onChange={handleChange}
               disabled={isLoading}
@@ -108,18 +110,18 @@ export default function LoginPage() {
             {isLoading ? (
               <>
                 <Loader2 size={18} className="spin" />
-                НЭВТЭРЧ БАЙНА...
+                {t.loggingIn}
               </>
             ) : (
-              'НЭВТРЭХ'
+              t.loginButton
             )}
           </button>
         </form>
 
         <div className="auth-footer-milwaukee">
           <p>
-            Бүртгэл байхгүй юу?{' '}
-            <Link href="/register">БҮРТГҮҮЛЭХ</Link>
+            {t.noAccount}{' '}
+            <Link href="/register">{t.register}</Link>
           </p>
         </div>
       </div>

@@ -1,22 +1,27 @@
+'use client';
+
 import Link from 'next/link';
 import { Facebook, Instagram } from 'lucide-react';
+import { useLanguage } from '@/lib/language-context';
 
 export default function MilwaukeeFooter() {
+  const { t } = useLanguage();
+
   const productLinks = [
-    { name: 'Power Tools', href: '#' },
-    { name: 'Hand Tools', href: '#' },
-    { name: 'Accessories', href: '#' },
-    { name: 'Storage', href: '#' },
-    { name: 'Work Gear', href: '#' },
+    { name: t.powerTools, href: '#' },
+    { name: t.handTools, href: '#' },
+    { name: t.accessories, href: '#' },
+    { name: t.storage, href: '#' },
+    { name: t.workGear, href: '#' },
     { name: 'Batteries & Chargers', href: '#' },
   ];
 
   const companyLinks = [
-    { name: 'About Us', href: '#' },
-    { name: 'Contact Us', href: '#contact' },
-    { name: 'Where To Buy', href: '#' },
-    { name: 'Terms and Conditions', href: '#' },
-    { name: 'Privacy Policy', href: '#' },
+    { name: t.aboutUs, href: '#' },
+    { name: t.contactUs, href: '#contact' },
+    { name: t.whereToBuy, href: '#' },
+    { name: t.terms, href: '#' },
+    { name: t.privacy, href: '#' },
   ];
 
   return (
@@ -25,7 +30,7 @@ export default function MilwaukeeFooter() {
         <div className="footer-grid-milwaukee">
           {/* Products */}
           <div className="footer-col">
-            <h4>БҮТЭЭГДЭХҮҮН</h4>
+            <h4>{t.products}</h4>
             <ul>
               {productLinks.map((link) => (
                 <li key={link.name}>
@@ -37,7 +42,7 @@ export default function MilwaukeeFooter() {
 
           {/* Company */}
           <div className="footer-col">
-            <h4>КОМПАНИ</h4>
+            <h4>{t.company}</h4>
             <ul>
               {companyLinks.map((link) => (
                 <li key={link.name}>
@@ -49,23 +54,20 @@ export default function MilwaukeeFooter() {
 
           {/* Contact Info */}
           <div className="footer-col">
-            <h4>ХОЛБОГДОХ</h4>
+            <h4>{t.contactInfo}</h4>
             <div className="distributor-card" style={{ padding: 0 }}>
               <h5>MMS LLC</h5>
-              <p>
-                MMS Green Building, Archivist street 512,
-                8th khoroo, Khan-Uul district, Ulaanbaatar 17101, Mongolia
-              </p>
-              <p>+976-7711-1999, 89664141</p>
-              <p>sales@source.mn</p>
+              <p>{t.addressValue}</p>
+              <p>{t.phoneValue}</p>
+              <p>{t.emailValue}</p>
             </div>
           </div>
 
           {/* Social */}
           <div className="footer-col">
-            <h4>СОШИАЛ</h4>
+            <h4>{t.social}</h4>
             <p style={{ color: '#999', fontSize: '13px', marginBottom: '15px' }}>
-              Биднийг дагаарай
+              {t.followUs}
             </p>
             <div className="footer-social">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
@@ -82,10 +84,10 @@ export default function MilwaukeeFooter() {
       {/* Footer Bottom */}
       <div className="footer-bottom-milwaukee">
         <div className="container">
-          <p>© 2026 MMS - The Future Is Electric. All rights reserved.</p>
+          <p>{t.copyright}</p>
           <div className="footer-bottom-links">
-            <Link href="#">Terms and Conditions of Use</Link>
-            <Link href="#">Privacy Policy</Link>
+            <Link href="#">{t.terms}</Link>
+            <Link href="#">{t.privacy}</Link>
           </div>
         </div>
       </div>

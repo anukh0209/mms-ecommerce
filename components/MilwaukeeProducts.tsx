@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import MilwaukeeProductCard from './MilwaukeeProductCard';
 import { products as staticProducts } from '@/lib/products';
+import { useLanguage } from '@/lib/language-context';
 
 interface Category {
   label: string;
@@ -11,18 +12,19 @@ interface Category {
   icon: string;
 }
 
-const categories: Category[] = [
-  { label: 'POWER TOOLS', value: 'power-tools', icon: '🔌' },
-  { label: 'HAND TOOLS', value: 'hand-tools', icon: '🔧' },
-  { label: 'ACCESSORIES', value: 'accessories', icon: '⚙️' },
-  { label: 'STORAGE', value: 'storage', icon: '📦' },
-  { label: 'WORK GEAR', value: 'work-gear', icon: '⛑️' },
-  { label: 'BATTERIES', value: 'battery', icon: '🔋' },
-];
-
 export default function MilwaukeeProducts() {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
+
+  const categories: Category[] = [
+    { label: t.solar, value: 'solar', icon: '☀️' },
+    { label: t.switchboard, value: 'switchboard', icon: '⚡' },
+    { label: t.battery, value: 'battery', icon: '🔋' },
+    { label: t.cable, value: 'cable', icon: '🔌' },
+    { label: t.construction, value: '', icon: '🏗️' },
+    { label: t.mining, value: '', icon: '⛏️' },
+  ];
 
   const handleCategoryClick = useCallback((categoryValue: string) => {
     const newCategory = activeCategory === categoryValue ? '' : categoryValue;
@@ -56,7 +58,7 @@ export default function MilwaukeeProducts() {
       <section className="category-section">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">АНГИЛАЛУУД</h2>
+            <h2 className="section-title">{t.categories}</h2>
           </div>
           <div className="category-grid">
             {categories.map((cat) => (
@@ -78,8 +80,8 @@ export default function MilwaukeeProducts() {
       <section className="products-section" id="products">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">HEATER NEW ARRIVAL</h2>
-            <Link href="/products" className="section-link">БҮГДИЙГ ХАРАХ →</Link>
+            <h2 className="section-title">{t.newArrivals}</h2>
+            <Link href="/products" className="section-link">{t.viewAll} →</Link>
           </div>
 
           <div className={`products-grid ${isAnimating ? 'filtering' : ''}`}>

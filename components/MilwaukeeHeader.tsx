@@ -6,16 +6,19 @@ import { Search, ShoppingCart, User, Menu, X, Heart, LogOut } from 'lucide-react
 import { useCart } from '@/lib/cart-context';
 import { useAuth } from '@/lib/auth-context';
 import { useToast } from '@/lib/toast-context';
+import { useLanguage } from '@/lib/language-context';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function MilwaukeeHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { totalItems, setIsCartOpen } = useCart();
   const { user, isAuthenticated, logout } = useAuth();
   const { showToast } = useToast();
+  const { t } = useLanguage();
 
   const handleCartClick = () => {
     if (!isAuthenticated) {
-      showToast('Сагс харахын тулд нэвтэрнэ үү', 'error');
+      showToast(t.loginRequiredCart, 'error');
       return;
     }
     setIsCartOpen(true);
@@ -23,15 +26,15 @@ export default function MilwaukeeHeader() {
 
   const handleLogout = () => {
     logout();
-    showToast('Амжилттай гарлаа', 'info');
+    showToast(t.logoutSuccess, 'info');
   };
 
   const navLinks = [
-    { name: 'POWER TOOLS', href: '#products' },
-    { name: 'HAND TOOLS', href: '#products' },
-    { name: 'ACCESSORIES', href: '#products' },
-    { name: 'STORAGE', href: '#products' },
-    { name: 'WORK GEAR', href: '#products' },
+    { name: t.powerTools, href: '#products' },
+    { name: t.handTools, href: '#products' },
+    { name: t.accessories, href: '#products' },
+    { name: t.storage, href: '#products' },
+    { name: t.workGear, href: '#products' },
   ];
 
   return (
@@ -39,15 +42,18 @@ export default function MilwaukeeHeader() {
       {/* Top Bar */}
       <div className="header-top">
         <div className="container">
-          <Link href="/where-to-buy" style={{ color: '#ccc', textDecoration: 'none', fontSize: '12px' }}>
-            SHOWROOM
-          </Link>
-          <Link href="/contact" style={{ color: '#ccc', textDecoration: 'none', fontSize: '12px' }}>
-            CONTACT US
-          </Link>
-          <Link href="/registration" style={{ color: '#ccc', textDecoration: 'none', fontSize: '12px' }}>
-            REGISTRATION
-          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <Link href="/where-to-buy" style={{ color: '#ccc', textDecoration: 'none', fontSize: '12px' }}>
+              {t.showroom}
+            </Link>
+            <Link href="/contact" style={{ color: '#ccc', textDecoration: 'none', fontSize: '12px' }}>
+              {t.contactUs}
+            </Link>
+            <Link href="/registration" style={{ color: '#ccc', textDecoration: 'none', fontSize: '12px' }}>
+              {t.registration}
+            </Link>
+          </div>
+          <LanguageSwitcher />
         </div>
       </div>
 
@@ -62,7 +68,7 @@ export default function MilwaukeeHeader() {
           </Link>
 
           <div className="header-search">
-            <input type="text" placeholder="Search..." />
+            <input type="text" placeholder={t.search + '...'} />
             <button>
               <Search size={18} />
             </button>
@@ -71,7 +77,7 @@ export default function MilwaukeeHeader() {
           <div className="header-actions">
             <Link href="/wishlist" className="header-action-btn">
               <Heart size={22} />
-              <span>Wishlist</span>
+              <span>{t.wishlist}</span>
             </Link>
 
             <button className="header-action-btn" onClick={handleCartClick}>
@@ -97,18 +103,18 @@ export default function MilwaukeeHeader() {
                   </span>
                 )}
               </div>
-              <span>Cart</span>
+              <span>{t.cart}</span>
             </button>
 
             {isAuthenticated && user ? (
               <div className="header-action-btn" onClick={handleLogout} style={{ cursor: 'pointer' }}>
                 <LogOut size={22} />
-                <span>{user.name}</span>
+                <span>{t.logout}</span>
               </div>
             ) : (
               <Link href="/login" className="header-action-btn">
                 <User size={22} />
-                <span>Account</span>
+                <span>{t.account}</span>
               </Link>
             )}
           </div>
@@ -123,7 +129,7 @@ export default function MilwaukeeHeader() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-            <span>Menu</span>
+            <span>{t.menu}</span>
           </button>
 
           <ul className="nav-links">

@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import { useToast } from '@/lib/toast-context';
+import { useLanguage } from '@/lib/language-context';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 export default function MilwaukeeContact() {
   const { showToast } = useToast();
+  const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     lastName: '',
@@ -24,7 +26,7 @@ export default function MilwaukeeContact() {
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     setIsLoading(false);
-    showToast('Мессеж амжилттай илгээгдлээ!', 'success');
+    showToast(t.loginSuccess, 'success');
     setFormData({
       lastName: '',
       firstName: '',
@@ -48,11 +50,8 @@ export default function MilwaukeeContact() {
         <div className="contact-grid">
           {/* Contact Info */}
           <div className="contact-info">
-            <h2>CONTACT US</h2>
-            <p>
-              Бид таны асуулт, саналыг сонсохдоо баяртай байх болно. 
-              Доорх маягтыг бөглөж бидэнтэй холбогдоно уу.
-            </p>
+            <h2>{t.contactTitle}</h2>
+            <p>{t.contactDescription}</p>
             
             <div style={{ marginBottom: '30px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
@@ -60,8 +59,8 @@ export default function MilwaukeeContact() {
                   <MapPin size={18} />
                 </div>
                 <div>
-                  <div style={{ fontWeight: '700', fontSize: '14px' }}>ХАЯГ</div>
-                  <div style={{ color: '#666', fontSize: '14px' }}>MMS Green Building, Archivist street 512, Khan-Uul district, Ulaanbaatar</div>
+                  <div style={{ fontWeight: '700', fontSize: '14px' }}>{t.address}</div>
+                  <div style={{ color: '#666', fontSize: '14px' }}>{t.addressValue}</div>
                 </div>
               </div>
               
@@ -70,8 +69,8 @@ export default function MilwaukeeContact() {
                   <Phone size={18} />
                 </div>
                 <div>
-                  <div style={{ fontWeight: '700', fontSize: '14px' }}>УТАС</div>
-                  <div style={{ color: '#666', fontSize: '14px' }}>+976-7711-1999, 89664141</div>
+                  <div style={{ fontWeight: '700', fontSize: '14px' }}>{t.phone}</div>
+                  <div style={{ color: '#666', fontSize: '14px' }}>{t.phoneValue}</div>
                 </div>
               </div>
               
@@ -80,8 +79,8 @@ export default function MilwaukeeContact() {
                   <Mail size={18} />
                 </div>
                 <div>
-                  <div style={{ fontWeight: '700', fontSize: '14px' }}>ИМЭЙЛ</div>
-                  <div style={{ color: '#666', fontSize: '14px' }}>sales@source.mn</div>
+                  <div style={{ fontWeight: '700', fontSize: '14px' }}>{t.email}</div>
+                  <div style={{ color: '#666', fontSize: '14px' }}>{t.emailValue}</div>
                 </div>
               </div>
             </div>
@@ -89,11 +88,11 @@ export default function MilwaukeeContact() {
 
           {/* Contact Form */}
           <form className="contact-form-milwaukee" onSubmit={handleSubmit}>
-            <h3>ИЛГЭЭХ МАЯГТ</h3>
+            <h3>{t.formTitle}</h3>
             
             <div className="form-row-milwaukee">
               <div className="form-group-milwaukee">
-                <label>ОВОГ</label>
+                <label>{t.lastName}</label>
                 <input
                   type="text"
                   name="lastName"
@@ -103,7 +102,7 @@ export default function MilwaukeeContact() {
                 />
               </div>
               <div className="form-group-milwaukee">
-                <label>НЭР</label>
+                <label>{t.firstName}</label>
                 <input
                   type="text"
                   name="firstName"
@@ -116,7 +115,7 @@ export default function MilwaukeeContact() {
             
             <div className="form-row-milwaukee">
               <div className="form-group-milwaukee">
-                <label>УТАС</label>
+                <label>{t.phone}</label>
                 <input
                   type="tel"
                   name="phone"
@@ -126,7 +125,7 @@ export default function MilwaukeeContact() {
                 />
               </div>
               <div className="form-group-milwaukee">
-                <label>ИМЭЙЛ</label>
+                <label>{t.email}</label>
                 <input
                   type="email"
                   name="email"
@@ -138,20 +137,20 @@ export default function MilwaukeeContact() {
             </div>
             
             <div className="form-group-milwaukee">
-              <label>АСУУЛТЫН ТӨРӨЛ</label>
+              <label>{t.questionType}</label>
               <select
                 name="questionType"
                 value={formData.questionType}
                 onChange={handleChange}
               >
-                <option value="product">Бүтээгдэхүүнтэй холбоотой</option>
-                <option value="service">Үйлчилгээтэй холбоотой</option>
-                <option value="other">Бусад</option>
+                <option value="product">{t.productRelated}</option>
+                <option value="service">{t.serviceRelated}</option>
+                <option value="other">{t.other}</option>
               </select>
             </div>
             
             <div className="form-group-milwaukee">
-              <label>МЕССЕЖ</label>
+              <label>{t.message}</label>
               <textarea
                 name="message"
                 value={formData.message}
@@ -166,11 +165,11 @@ export default function MilwaukeeContact() {
               disabled={isLoading}
             >
               {isLoading ? (
-                'ИЛГЭЭЖ БАЙНА...'
+                t.sending
               ) : (
                 <>
                   <Send size={16} />
-                  ИЛГЭЭХ
+                  {t.submit}
                 </>
               )}
             </button>

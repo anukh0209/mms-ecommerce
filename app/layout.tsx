@@ -3,6 +3,7 @@ import "./globals.css";
 import { CartProvider } from "@/lib/cart-context";
 import { AuthProvider } from "@/lib/auth-context";
 import { ToastProvider } from "@/lib/toast-context";
+import { LanguageProvider } from "@/lib/language-context";
 
 export const metadata: Metadata = {
   title: "MMS - The Future Is Electric",
@@ -17,13 +18,15 @@ export default function RootLayout({
   return (
     <html lang="mn">
       <body>
-        <AuthProvider>
-          <CartProvider>
-            <ToastProvider>
-              {children}
-            </ToastProvider>
-          </CartProvider>
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <CartProvider>
+              <ToastProvider>
+                {children}
+              </ToastProvider>
+            </CartProvider>
+          </AuthProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

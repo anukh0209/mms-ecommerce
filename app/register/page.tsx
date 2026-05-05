@@ -5,12 +5,14 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth-context';
 import { useToast } from '@/lib/toast-context';
+import { useLanguage } from '@/lib/language-context';
 import { User, Mail, Lock, Loader2 } from 'lucide-react';
 
 export default function RegisterPage() {
   const router = useRouter();
   const { register } = useAuth();
   const { showToast } = useToast();
+  const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
@@ -24,25 +26,25 @@ export default function RegisterPage() {
     const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Нэр оруулна уу';
+      newErrors.name = t.required;
     } else if (formData.name.trim().length < 2) {
-      newErrors.name = 'Нэр хамгийн багадаа 2 үсэг байх ёстой';
+      newErrors.name = t.minName;
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Имэйл хаяг оруулна уу';
+      newErrors.email = t.required;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Зөв имэйл хаяг оруулна уу';
+      newErrors.email = t.invalidEmail;
     }
 
     if (!formData.password) {
-      newErrors.password = 'Нууц үг оруулна уу';
+      newErrors.password = t.required;
     } else if (formData.password.length < 6) {
-      newErrors.password = 'Нууц үг хамгийн багадаа 6 тэмдэгт байх ёстой';
+      newErrors.password = t.minPassword;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Нууц үг таарахгүй байна';
+      newErrors.confirmPassword = t.passwordMatch;
     }
 
     setErrors(newErrors);
@@ -58,12 +60,12 @@ export default function RegisterPage() {
     setIsLoading(false);
 
     if (result.success) {
-      showToast(result.message, 'success');
+      showToast(t.registerSuccess, 'success');
       setTimeout(() => {
         router.push('/login');
       }, 1500);
     } else {
-      showToast(result.message, 'error');
+      showToast(t.emailExists, 'error');
     }
   };
 
@@ -85,17 +87,17 @@ export default function RegisterPage() {
         <div className="auth-logo-milwaukee">MMS</div>
         
         <div className="auth-header-milwaukee">
-          <h1>БҮРТГҮҮЛЭХ</h1>
-          <p>Шинэ бүртгэл үүсгэнэ үү</p>
+          <h1>{t.register}</h1>
+          <p>{t.registerDescription}</p>
         </div>
 
         <form className="auth-form-milwaukee" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>НЭР</label>
+            <label>{t.name}</label>
             <input
               type="text"
               name="name"
-              placeholder="Таны нэр"
+              placeholder={t.name}
               value={formData.name}
               onChange={handleChange}
               disabled={isLoading}
@@ -104,7 +106,7 @@ export default function RegisterPage() {
           </div>
 
           <div className="form-group">
-            <label>ИМЭЙЛ ХАЯГ</label>
+            <label>{t.email}</label>
             <input
               type="email"
               name="email"
@@ -117,11 +119,11 @@ export default function RegisterPage() {
           </div>
 
           <div className="form-group">
-            <label>НУУЦ ҮГ</label>
+            <label>{t.password}</label>
             <input
               type="password"
               name="password"
-              placeholder="Хамгийн багадаа 6 тэмдэгт"
+              placeholder={t.password}
               value={formData.password}
               onChange={handleChange}
               disabled={isLoading}
@@ -130,11 +132,11 @@ export default function RegisterPage() {
           </div>
 
           <div className="form-group">
-            <label>НУУЦ ҮГ ДАВТАХ</label>
+            <label>{t.confirmPassword}</label>
             <input
               type="password"
               name="confirmPassword"
-              placeholder="Нууц үгээ дахин оруулна уу"
+              placeholder={t.confirmPassword}
               value={formData.confirmPassword}
               onChange={handleChange}
               disabled={isLoading}
@@ -150,18 +152,18 @@ export default function RegisterPage() {
             {isLoading ? (
               <>
                 <Loader2 size={18} className="spin" />
-                БҮРТГЭЖ БАЙНА...
+                {t.registering}
               </>
             ) : (
-              'БҮРТГҮҮЛЭХ'
+              t.registerButton
             )}
           </button>
         </form>
 
         <div className="auth-footer-milwaukee">
           <p>
-            Бүртгэлтэй юу?{' '}
-            <Link href="/login">НЭВТРЭХ</Link>
+            {t.hasAccount}{' '}
+            <Link href="/login">{t.login}</Link>
           </p>
         </div>
       </div>

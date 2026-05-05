@@ -5,6 +5,7 @@ import { Product, formatPrice } from '@/lib/products';
 import { useCart } from '@/lib/cart-context';
 import { useAuth } from '@/lib/auth-context';
 import { useToast } from '@/lib/toast-context';
+import { useLanguage } from '@/lib/language-context';
 import { ShoppingCart, Heart } from 'lucide-react';
 
 interface ProductCardProps {
@@ -15,11 +16,12 @@ export default function MilwaukeeProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const { isAuthenticated } = useAuth();
   const { showToast } = useToast();
+  const { t } = useLanguage();
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   const handleAddToCart = () => {
     if (!isAuthenticated) {
-      showToast('Сагсанд нэмэхийн тулд нэвтэрнэ үү', 'error');
+      showToast(t.loginRequiredAdd, 'error');
       return;
     }
     addToCart({
@@ -29,13 +31,13 @@ export default function MilwaukeeProductCard({ product }: ProductCardProps) {
       image: product.image,
       code: product.code,
     });
-    showToast(`"${product.name}" сагсанд нэмэгдлээ!`);
+    showToast(`"${product.name}" ${t.addToCart}!`);
   };
 
   const handleWishlist = () => {
     setIsWishlisted(!isWishlisted);
     showToast(
-      isWishlisted ? 'Хадгалсан бүтээгдэхүүнээс хасагдлаа' : 'Хадгалсан бүтээгдэхүүнүүдэд нэмэгдлээ',
+      isWishlisted ? 'Removed from wishlist' : 'Added to wishlist',
       'info'
     );
   };
@@ -51,7 +53,7 @@ export default function MilwaukeeProductCard({ product }: ProductCardProps) {
       <div className="product-badge">
         {badges.map((badge) => (
           <div key={badge} className={`badge-${badge}`}>
-            {badge === 'new' ? 'NEW' : 'TRENDING'}
+            {badge === 'new' ? t.new : t.trending}
           </div>
         ))}
       </div>
@@ -82,11 +84,11 @@ export default function MilwaukeeProductCard({ product }: ProductCardProps) {
         <div className="product-code-milwaukee">{product.code}</div>
         <div className="product-price-milwaukee">{formatPrice(product.price)}</div>
         <div className={`product-stock-milwaukee ${product.stock === 0 ? 'out-of-stock' : ''}`}>
-          {product.stock > 0 ? `Бэлэн: ${product.stock}ш` : 'Дууссан'}
+          {product.stock > 0 ? `${t.inStock}: ${product.stock}` : t.outOfStock}
         </div>
         <button className="btn-add-cart-milwaukee" onClick={handleAddToCart}>
           <ShoppingCart size={16} />
-          САГСАНД НЭМЭХ
+          {t.addToCart}
         </button>
       </div>
     </div>
