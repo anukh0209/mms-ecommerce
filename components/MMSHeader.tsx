@@ -50,12 +50,20 @@ export default function Header() {
     <header className="site-header">
       <div className="header-main">
         <div className="container">
-          <Link href="/" className="header-logo">
-            <div className="logo-icon">M</div>
-            <div className="logo-text">
-              <span className="logo-brand">MMS</span>
-              <span className="logo-tagline">The Future Is Electric</span>
+          <Link href="/" className="header-logo" style={{ gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div className="logo-icon">M</div>
+              <div className="logo-text">
+                <span className="logo-brand">MMS</span>
+                <span className="logo-tagline">The Future Is Electric</span>
+              </div>
             </div>
+            <div style={{ width: '1px', height: '36px', background: 'var(--gray-300)' }} />
+            <img 
+              src="https://www.milwaukeetool.mn/static/version1772157379/frontend/Dtn/mwk_mn/en_US/images/logo.svg" 
+              alt="Milwaukee Tool"
+              style={{ height: '32px', width: 'auto' }}
+            />
           </Link>
 
           <div className="header-search">
