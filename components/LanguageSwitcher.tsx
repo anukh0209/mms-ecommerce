@@ -6,7 +6,7 @@ import { Globe } from 'lucide-react';
 
 const languages: { code: Language; label: string; flag: string }[] = [
   { code: 'mn', label: 'MN', flag: '🇲🇳' },
-  { code: 'en', label: 'EN', flag: '🇬🇧' },
+  { code: 'en', label: 'EN', flag: '🇺🇸' },
   { code: 'cn', label: 'CN', flag: '🇨🇳' },
 ];
 
