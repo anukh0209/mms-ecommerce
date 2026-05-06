@@ -51,14 +51,54 @@ export default function Header() {
       <div className="header-main">
         <div className="container">
           <Link href="/" className="header-logo" style={{ gap: '16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div className="logo-icon">M</div>
-              <div className="logo-text">
-                <span className="logo-brand">MMS</span>
-                <span className="logo-tagline">The Future Is Electric</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '50%',
+                border: '2.5px solid rgba(255,255,255,0.9)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'transparent',
+                flexShrink: 0,
+              }}>
+                <span style={{
+                  fontSize: '11px',
+                  fontWeight: 900,
+                  color: 'white',
+                  letterSpacing: '1px',
+                }}>
+                  MMS
+                </span>
+              </div>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '2px',
+              }}>
+                <span style={{
+                  fontSize: '24px',
+                  fontWeight: 900,
+                  color: 'white',
+                  letterSpacing: '1px',
+                  lineHeight: 1,
+                }}>
+                  MMS
+                </span>
+                <span style={{
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  color: 'var(--gray-400)',
+                  letterSpacing: '4px',
+                  textTransform: 'uppercase',
+                  lineHeight: 1,
+                }}>
+                  GROUP
+                </span>
               </div>
             </div>
-            <div style={{ width: '1px', height: '36px', background: 'var(--gray-300)' }} />
+            <div style={{ width: '1px', height: '40px', background: 'var(--gray-600)' }} />
             <img 
               src="https://www.milwaukeetool.mn/static/version1772157379/frontend/Dtn/mwk_mn/en_US/images/logo.svg" 
               alt="Milwaukee Tool"
