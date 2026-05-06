@@ -4,10 +4,10 @@ import { useLanguage } from '@/lib/language-context';
 import { Language } from '@/lib/translations';
 import { Globe } from 'lucide-react';
 
-const languages: { code: Language; label: string }[] = [
-  { code: 'mn', label: 'MN' },
-  { code: 'en', label: 'EN' },
-  { code: 'cn', label: 'CN' },
+const languages: { code: Language; label: string; flag: string }[] = [
+  { code: 'mn', label: 'MN', flag: '🇲🇳' },
+  { code: 'en', label: 'EN', flag: '🇬🇧' },
+  { code: 'cn', label: 'CN', flag: '🇨🇳' },
 ];
 
 export default function LanguageSwitcher() {
@@ -15,8 +15,8 @@ export default function LanguageSwitcher() {
 
   return (
     <div className="language-switcher">
-      <Globe size={16} style={{ color: 'rgba(255,255,255,0.7)' }} />
-      <div style={{ display: 'flex', gap: '6px' }}>
+      <Globe size={18} style={{ color: 'rgba(255,255,255,0.6)' }} />
+      <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
         {languages.map((lang) => (
           <button
             key={lang.code}
@@ -24,7 +24,8 @@ export default function LanguageSwitcher() {
             className={`language-btn ${language === lang.code ? 'active' : ''}`}
             title={lang.label}
           >
-            {lang.label}
+            <span style={{ fontSize: '14px', marginRight: '4px' }}>{lang.flag}</span>
+            <span>{lang.label}</span>
           </button>
         ))}
       </div>
