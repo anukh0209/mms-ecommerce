@@ -76,21 +76,18 @@ export default function Header() {
           <div className="header-actions">
             <LanguageSwitcher />
             
-            <button className="header-btn" onClick={handleCartClick}>
+            <button className="header-btn icon-only" onClick={handleCartClick}>
               <ShoppingCart size={20} />
-              <span>{t.cart}</span>
               {totalItems > 0 && <span className="badge">{totalItems}</span>}
             </button>
 
             {isAuthenticated && user ? (
-              <button className="header-btn" onClick={handleLogout}>
+              <button className="header-btn icon-only" onClick={handleLogout}>
                 <LogOut size={20} />
-                <span>{t.logout}</span>
               </button>
             ) : (
-              <Link href="/login" className="header-btn primary">
+              <Link href="/login" className="header-btn primary icon-only">
                 <User size={20} />
-                <span>{t.account}</span>
               </Link>
             )}
           </div>

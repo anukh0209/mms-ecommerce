@@ -201,6 +201,13 @@ body {
   transform: translateY(-2px);
 }
 
+.header-btn.icon-only {
+  padding: 12px;
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+}
+
 .header-btn.primary {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: var(--white);
