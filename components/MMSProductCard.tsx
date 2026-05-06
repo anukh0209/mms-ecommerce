@@ -12,7 +12,7 @@ interface ProductCardProps {
   product: Product;
 }
 
-export default function MilwaukeeProductCard({ product }: ProductCardProps) {
+export default function MMSProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const { isAuthenticated } = useAuth();
   const { showToast } = useToast();
@@ -48,7 +48,7 @@ export default function MilwaukeeProductCard({ product }: ProductCardProps) {
   if (product.id % 5 === 0) badges.push('trending');
 
   return (
-    <div className="product-card-milwaukee">
+    <div className="product-card">
       {/* Badges */}
       <div className="product-badge">
         {badges.map((badge) => (
@@ -59,7 +59,7 @@ export default function MilwaukeeProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Product Actions */}
-      <div className="product-actions-milwaukee">
+      <div className="product-actions">
         <button 
           className="product-action-btn"
           onClick={handleWishlist}
@@ -70,7 +70,7 @@ export default function MilwaukeeProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Product Image */}
-      <div className="product-image-milwaukee">
+      <div className="product-image">
         {product.image ? (
           <img src={product.image} alt={product.name} />
         ) : (
@@ -79,14 +79,14 @@ export default function MilwaukeeProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Product Info */}
-      <div className="product-info-milwaukee">
-        <div className="product-name-milwaukee">{product.name}</div>
-        <div className="product-code-milwaukee">{product.code}</div>
-        <div className="product-price-milwaukee">{formatPrice(product.price)}</div>
-        <div className={`product-stock-milwaukee ${product.stock === 0 ? 'out-of-stock' : ''}`}>
+      <div className="product-info">
+        <div className="product-name">{product.name}</div>
+        <div className="product-code">{product.code}</div>
+        <div className="product-price">{formatPrice(product.price)}</div>
+        <div className={`product-stock ${product.stock === 0 ? 'out-of-stock' : ''}`}>
           {product.stock > 0 ? `${t.inStock}: ${product.stock}` : t.outOfStock}
         </div>
-        <button className="btn-add-cart-milwaukee" onClick={handleAddToCart}>
+        <button className="btn-add-cart" onClick={handleAddToCart}>
           <ShoppingCart size={16} />
           {t.addToCart}
         </button>
