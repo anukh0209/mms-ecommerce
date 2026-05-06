@@ -56,7 +56,7 @@ export default function Header() {
                 width: '52px',
                 height: '52px',
                 borderRadius: '50%',
-                border: '2.5px solid rgba(255,255,255,0.9)',
+                border: '2.5px solid #3b82f6',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
