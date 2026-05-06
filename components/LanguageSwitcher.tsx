@@ -24,8 +24,7 @@ export default function LanguageSwitcher() {
             className={`language-btn ${language === lang.code ? 'active' : ''}`}
             title={lang.label}
           >
-            <span style={{ fontSize: '14px', marginRight: '4px' }}>{lang.flag}</span>
-            <span>{lang.label}</span>
+            <span style={{ fontSize: '18px' }}>{lang.flag}</span>
           </button>
         ))}
       </div>
